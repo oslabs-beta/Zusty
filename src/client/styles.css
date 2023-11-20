@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.link {
+  stroke: #999;
+  stroke-width: 2px;
+}
