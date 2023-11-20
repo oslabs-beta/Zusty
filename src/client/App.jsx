@@ -1,5 +1,5 @@
 import React from 'react';
-import D3Tree from './D3Tree';
+import D3Tree from './components/D3Tree';
 
 const App = () => {
   const treeData = {
