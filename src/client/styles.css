@@ -6,3 +6,31 @@
   stroke: #999;
   stroke-width: 2px;
 }
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  background-color: lightblue;
+  width: 100%;
+  height: 100vh;
+}
+
+.left-container {
+  border: 1px solid black;
+  background-color: white;
+}
+
+.right-container {
+  border: 1px solid black;
+  background-color: white;
+}
+
+.action-log {
+  border: 1px solid black;
+  text-align: center;
+}
