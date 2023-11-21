@@ -24,10 +24,14 @@ const App = () => {
   };
 
   return (
-    <>
-      <Navigation />
-      <D3Tree data={treeData} />
-    </>
+    <div className='main-container'>
+      <div className='left-container'>
+        <Navigation />
+      </div>
+      <div className='right-container'>
+        <D3Tree data={treeData} />
+      </div>
+    </div>
   );
 };
 

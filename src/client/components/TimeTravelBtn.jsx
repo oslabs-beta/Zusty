@@ -5,7 +5,9 @@ import React from 'react';
 const TimeTravelBtn = () => {
   return (
     <div>
-      <button className='time-travel-btn'>Time Travel</button>
+      <button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+        Time Travel
+      </button>
     </div>
   );
 };

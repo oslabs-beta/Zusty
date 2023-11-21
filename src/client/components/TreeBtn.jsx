@@ -7,7 +7,9 @@ const TreeBtn = () => {
 
   return (
     <div>
-      <button className='tree-btn'>Tree</button>
+      <button class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+        Tree
+      </button>
     </div>
   );
 };

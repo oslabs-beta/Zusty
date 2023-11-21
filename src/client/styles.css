@@ -7,14 +7,25 @@
   stroke-width: 2px;
 }
 
-.tree-btn {
-  border: 1px solid black;
+.nav {
+  display: flex;
+  justify-content: space-between;
 }
 
-.time-travel-btn {
-  border: 1px solid black;
+.main-container {
+  display: flex;
+  justify-content: center;
+  background-color: lightblue;
+  width: 100%;
+  height: 100vh;
 }
 
-.store-btn {
+.left-container {
   border: 1px solid black;
+  background-color: white;
+}
+
+.right-container {
+  border: 1px solid black;
+  background-color: white;
 }
