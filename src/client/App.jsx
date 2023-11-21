@@ -1,6 +1,6 @@
 import React from 'react';
 import D3Tree from './components/D3Tree';
-import TreeBtn from './components/TreeBtn';
+import Navigation from './components/NavBar';
 
 const App = () => {
   const treeData = {
@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <>
-      <TreeBtn></TreeBtn>
+      <Navigation />
       <D3Tree data={treeData} />
     </>
   );

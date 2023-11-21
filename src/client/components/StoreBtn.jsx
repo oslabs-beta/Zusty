@@ -7,7 +7,7 @@ const StoreBtn = () => {
 
   return (
     <div className='button'>
-      <button className='storeBtn'>Store</button>
+      <button className='store-btn'>Store</button>
     </div>
   );
 };
