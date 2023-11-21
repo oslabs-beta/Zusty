@@ -1,9 +1,12 @@
 import React from 'react';
+import useStore from './store/store';
 import D3Tree from './components/D3Tree';
 import Navigation from './components/NavBar';
 import ActionLog from './components/ActionLog';
+import TimeTravel from './components/TimeTravel';
 
 const App = () => {
+  const activeTab = useStore((state) => state.activeTab);
   const treeData = {
     name: 'Board',
     children: [
@@ -31,7 +34,8 @@ const App = () => {
         <ActionLog />
       </div>
       <div className='right-container'>
-        <D3Tree data={treeData} />
+        {activeTab === 'tree' && <D3Tree data={treeData} />}
+        {activeTab === 'timeTravel' && <TimeTravel />}
       </div>
     </div>
   );

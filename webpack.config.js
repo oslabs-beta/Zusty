@@ -5,7 +5,7 @@ const config = {
   mode: 'development',
   entry: { bundle: path.resolve(__dirname, 'src/client/index.js') },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'extension/dist'),
     // filename: 'index.bundle.js',
     clean: true,
     assetModuleFilename: '[name][ext]',
