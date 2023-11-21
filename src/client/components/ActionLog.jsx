@@ -35,7 +35,7 @@ const ActionLog = () => {
           return (
             <div
               key={uuid()}
-              className='text-center w-full p-2 bg-blue-300 rounded-md my-2'
+              className='text-center w-full p-2 bg-blue-400 rounded-md my-2'
             >
               <p>{el}</p>
             </div>

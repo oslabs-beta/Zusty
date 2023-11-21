@@ -1,10 +1,11 @@
 // time travel component
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import uuid from 'react-uuid';
 
 const TimeTravel = () => {
   return (
     <div>
-      <p>Time Travel</p>
+      <p>This will show the time travel feature</p>
     </div>
   );
 };

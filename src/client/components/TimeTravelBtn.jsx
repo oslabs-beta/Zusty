@@ -1,5 +1,3 @@
-// button to render the time travel component
-
 import React from 'react';
 import useStore from '../store/store';
 

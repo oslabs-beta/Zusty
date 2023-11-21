@@ -9,8 +9,8 @@
 }
 
 .navBtn {
-  @apply bg-blue-500;
-  @apply hover:bg-blue-700;
+  @apply bg-blue-700;
+  @apply hover:bg-blue-500;
   @apply text-white;
   @apply font-bold;
   @apply py-2;
