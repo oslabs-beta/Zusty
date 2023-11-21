@@ -2,37 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* D3 link */
 .link {
   stroke: #999;
   stroke-width: 2px;
 }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
+.navBtn {
+  @apply bg-blue-700;
+  @apply hover:bg-blue-500;
+  @apply text-white;
+  @apply font-bold;
+  @apply py-2;
+  @apply px-4;
+  @apply rounded-full;
 }
 
-.main-container {
-  display: flex;
-  justify-content: center;
-  background-color: lightblue;
-  width: 100%;
-  height: 100vh;
-}
-
-.left-container {
-  border: 1px solid black;
-  background-color: white;
-  width: 30%;
-}
-
-.right-container {
-  border: 1px solid black;
-  background-color: white;
-  width: 70%;
-}
-
-.action-log {
-  border: 1px solid black;
-  text-align: center;
+.btn {
+  @apply bg-transparent;
+  @apply hover:bg-blue-500;
+  @apply text-blue-700;
+  @apply font-semibold;
+  @apply hover:text-white;
+  @apply py-2;
+  @apply px-4;
+  @apply border;
+  @apply border-blue-500;
+  @apply hover:border-transparent;
+  @apply rounded;
 }
