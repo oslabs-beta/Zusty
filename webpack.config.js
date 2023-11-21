@@ -5,15 +5,14 @@ const config = {
   mode: 'development',
   entry: { bundle: path.resolve(__dirname, 'src/client/index.js') },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    // filename: 'index.bundle.js',
-    clean: true,
-    assetModuleFilename: '[name][ext]',
+    path: path.join(__dirname, 'extension/dist'),
+    filename: 'bundle.js',
+    publicPath: '/',
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.join(__dirname, 'dist'),
       publicPath: '/',
     },
     port: 3000,
@@ -53,12 +52,14 @@ const config = {
     new HtmlWebpackPlugin({
       title: 'Development',
       //filename: 'index.html',
-      template: 'src/client/index.html',
+      template: path.join(__dirname, './src/client/index.html'),
     }),
   ],
 };
 
 if ((process.env.NODE_ENV = 'development')) {
+  console.log('config output:', config.output);
+  console.log('config output path:', config.output.path);
   //
 } else if ((process.env.NODE_ENV = 'production')) {
   //

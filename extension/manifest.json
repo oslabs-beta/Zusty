@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+
+  "name": "Zusty",
+  "version": "1.0",
+
+  "description": "Zustand's developer tool",
+  "author": "Zusty Team",
+
+  "devtools_page": "/html/devtools.html",
+
+  "background": {
+    "service_worker": "/scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["/scripts/contentScript.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "/scripts/contentScript.js",
+        "/scripts/injectedScript.js",
+        "styles.css"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": ["storage", "tabs", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "externally_connectable": {
+    "matches": ["<all_urls>"]
+  }
+}
