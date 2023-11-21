@@ -29,3 +29,8 @@
   border: 1px solid black;
   background-color: white;
 }
+
+.action-log {
+  border: 1px solid black;
+  text-align: center;
+}
