@@ -29,12 +29,12 @@ const App = () => {
   };
 
   return (
-    <div className='main-container'>
-      <div className='left-container'>
+    <div className='flex h-screen'>
+      <div className='w-1/3 bg-blue-100'>
         <Navigation />
         <ActionLog />
       </div>
-      <div className='right-container'>
+      <div className='w-2/3'>
         {activeTab === 'tree' && <D3Tree data={treeData} />}
         {activeTab === 'timeTravel' && <TimeTravel />}
       </div>

@@ -6,7 +6,7 @@ import React from 'react';
 
 const Navigation = () => {
   return (
-    <div className='nav'>
+    <div className='flex justify-around my-2'>
       <TimeTravelBtn />
       <TreeBtn />
       <StoreBtn />
