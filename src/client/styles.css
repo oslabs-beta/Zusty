@@ -23,11 +23,13 @@
 .left-container {
   border: 1px solid black;
   background-color: white;
+  width: 30%;
 }
 
 .right-container {
   border: 1px solid black;
   background-color: white;
+  width: 70%;
 }
 
 .action-log {
