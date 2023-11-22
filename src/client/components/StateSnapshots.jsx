@@ -19,8 +19,13 @@ const StateSnapshots = () => {
           className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
         >
           <ul>
-            {Object.keys(el).map((key) => (
-              <li key={uuid()}>{JSON.stringify(el[key])}</li>
+            {/* Display the timestamp first */}
+            <li key={uuid()}>{`Timestamp: ${el.timestamp}`}</li>
+            {/* Display the key-value pairs */}
+            {Object.keys(el.stateSnapshot).map((key) => (
+              <li key={uuid()}>{`${key}: ${JSON.stringify(
+                el.stateSnapshot[key]
+              )}`}</li>
             ))}
           </ul>
         </div>
