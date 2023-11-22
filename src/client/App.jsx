@@ -38,6 +38,7 @@ const App = () => {
   const setUpExtensionListner = () => {
     if (!connected) {
       console.log('Connecting to chrome...');
+      // connect to chrome runtime
       port = chrome.runtime.connect();
       connected = true;
     }
