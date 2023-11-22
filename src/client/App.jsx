@@ -7,6 +7,7 @@ import ActionLog from './components/ActionLog';
 import TimeTravel from './components/TimeTravel';
 import StateSnapshots from './components/StateSnapshots';
 import Store from './components/Store';
+import TreeRender from './components/d3TreeRender/TreeRender';
 
 const App = () => {
   const activeTab = useStore((state) => state.activeTab);
@@ -62,12 +63,15 @@ const App = () => {
   }, []);
 
   return (
-    <div className='flex h-screen'>
-      <div className='w-1/3 bg-blue-100'>
+    <div className="flex h-screen">
+      <div className="w-1/3 bg-blue-100">
         <Navigation />
         <StateSnapshots />
       </div>
-      <div className='w-2/3'>
+      <div>
+        <TreeRender />
+      </div>
+      <div className="w-2/3">
         {activeTab === 'tree' && <D3Tree data={treeData} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
