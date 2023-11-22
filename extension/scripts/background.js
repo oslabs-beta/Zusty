@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
   });
 
-  chrome.runtime.onConnect,addListener((port) => {
+  chrome.runtime.onConnect.addListener((port) => {
     backgroundPort = port;
 
     backgroundPort.onMessage.addListener((message, sender, sendResponse) => {
