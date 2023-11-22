@@ -38,8 +38,8 @@ const App = () => {
   const setUpExtensionListner = () => {
     if (!connected) {
       console.log('Connecting to chrome...');
-      // the string comes from the ID on the chrom extension
-      port = chrome.runtime.connect('mlfjikfjladnjajemejbekfjgggjpmpe');
+      // connect to chrome runtime
+      port = chrome.runtime.connect();
       connected = true;
     }
 
