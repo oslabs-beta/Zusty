@@ -46,10 +46,16 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
+        //current time in YYYY-MM-DDTHH:mm:ss format
+        const timestamp = new Date().toISOString().slice(0, 19);
         // parsing the data we get back into JSON
         let currentStateSnapshot = JSON.parse(message.stateSnapshot);
+        const currentStateWithTimestamp = {
+          timestamp,
+          stateSnapshot: currentStateSnapshot,
+        };
         // add the current snapshot to the state snapshot array in the store
-        addStateSnapshot(currentStateSnapshot);
+        addStateSnapshot(currentStateWithTimestamp);
         // give it a time stamp of when we got the message and console log that
         // add an object to the global zustand state with two key/values - timestamp, stateSnapshot
       });
