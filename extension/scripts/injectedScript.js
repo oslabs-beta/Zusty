@@ -1,14 +1,11 @@
-// grab the users application storeconst store = window.store;
+// grab the users application store
 const store = window.store;
 
-window.postMessage({
-  body: "",
-  state: JSON.stringify(store),
-})
+console.log('injected script loaded');
 
-window.addEventListener("message", (event) => {
-  if (event.data.body === "TimeTravel") {
-    const currState = event.data.TimeTravel;
-    store.setState(currState);
-  }
-})
+// subscribe to their store to get any changes that are made
+store.subscribe(() => {
+  const stateSnapshot = JSON.stringify(store.getState());
+  // this goes to the background.js
+  window.postMessage({ body: 'stateSnapshot', stateSnapshot });
+});

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import uuid from 'react-uuid';
 import useStore from './store/store';
 import D3Tree from './components/D3Tree';
 import Navigation from './components/NavBar';
@@ -9,6 +10,7 @@ import Store from './components/Store';
 
 const App = () => {
   const activeTab = useStore((state) => state.activeTab);
+  const { stateSnapshotArray, addStateSnapshot } = useStore();
 
   const treeData = {
     name: 'Board',
@@ -29,6 +31,35 @@ const App = () => {
       },
     ],
   };
+
+  let connected = false;
+  let port;
+  // getting state snapshots from injected script
+  const setUpExtensionListner = () => {
+    if (!connected) {
+      console.log('Connecting to chrome...');
+      // the string comes from the ID on the chrom extension
+      port = chrome.runtime.connect('mlfjikfjladnjajemejbekfjgggjpmpe');
+      connected = true;
+    }
+
+    if (connected) {
+      // listens to the message from the background.js
+      port.onMessage.addListener((message, sender, sendResponse) => {
+        // parsing the data we get back into JSON
+        let currentStateSnapshot = JSON.parse(message.stateSnapshot);
+        // add the current snapshot to the state snapshot array in the store
+        addStateSnapshot(currentStateSnapshot);
+        // give it a time stamp of when we got the message and console log that
+        // add an object to the global zustand state with two key/values - timestamp, stateSnapshot
+      });
+    }
+  };
+
+  // run the set up extension listner when the page loads
+  useEffect(() => {
+    setUpExtensionListner();
+  }, []);
 
   return (
     <div className='flex h-screen'>
