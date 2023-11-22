@@ -1,16 +1,32 @@
-// Previous state snapshots
-// time travel component
 import React, { useEffect, useState } from 'react';
+import useStore from '../store/store';
 import uuid from 'react-uuid';
 
 const StateSnapshots = () => {
-  const [stateSnapshot, setStateSnapshot] = useState([
-    'state snapshot 1',
-    'state snapshot 2',
-    'state snapshot 3',
-    'state snapshot 4',
-    'state snapshot 5',
-  ]);
+  // Bring in stateSnapshotArray from Zustand store
+  const { stateSnapshotArray } = useStore();
+
+  // Declare updatedRenderedSnapshots using useState
+  const [updatedRenderedSnapshots, setUpdatedRenderedSnapshots] = useState([]);
+
+  // useEffect so that we get any updates when a snapshot is added to the stateSnapshotArray in the store
+  useEffect(() => {
+    // Update the state using setUpdatedRenderedSnapshots
+    setUpdatedRenderedSnapshots(
+      stateSnapshotArray.map((el) => (
+        <div
+          key={uuid()}
+          className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
+        >
+          <ul>
+            {Object.keys(el).map((key) => (
+              <li key={uuid()}>{JSON.stringify(el[key])}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    );
+  }, [stateSnapshotArray]);
 
   return (
     <div
@@ -18,18 +34,7 @@ const StateSnapshots = () => {
       style={{ height: '800px', overflow: 'auto' }}
     >
       <h1 className='text-center text-xl front-text-bold'>State Snapshots</h1>
-      <div className='flex flex-col p-2 h-2/3 justify-center items-center'>
-        {stateSnapshot.map((el) => {
-          return (
-            <div
-              key={uuid()}
-              className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
-            >
-              <p>{el}</p>
-            </div>
-          );
-        })}
-      </div>
+      <div>{updatedRenderedSnapshots}</div>
     </div>
   );
 };

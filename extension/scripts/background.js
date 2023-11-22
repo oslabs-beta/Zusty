@@ -13,10 +13,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       stateSnapshot: request.stateSnapshot,
     });
   }
-  // if (backgroundPort) {
-  //   if (request.body === '') backgroundPort.postMessage();
-  //   if (request.body === '') backgroundPort.postMessage();
-  // }
 });
 
 chrome.runtime.onConnect.addListener((port) => {
@@ -38,10 +34,3 @@ chrome.runtime.onConnect.addListener((port) => {
     }
   });
 });
-//declaring background port
-//adding a listener to our port
-//this listens for messages from app.jsx and has the ability to send messages to content script
-
-//injects content script into current users tab
-
-//sends a message to the previously injected script containing the previous state that the user's store should be udpated to

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import uuid from 'react-uuid';
 import useStore from './store/store';
 import D3Tree from './components/D3Tree';
 import Navigation from './components/NavBar';
@@ -37,19 +38,17 @@ const App = () => {
   const setUpExtensionListner = () => {
     if (!connected) {
       console.log('Connecting to chrome...');
+      // the string comes from the ID on the chrom extension
       port = chrome.runtime.connect('mlfjikfjladnjajemejbekfjgggjpmpe');
       connected = true;
     }
 
     if (connected) {
-      console.log('Connected to chrome');
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('MESSAGE RECIVED');
-        console.log({ message, sender, sendResponse });
-        // JSON parse message.stateSnapsot
-        console.log(JSON.parse(message.stateSnapshot));
+        // parsing the data we get back into JSON
         let currentStateSnapshot = JSON.parse(message.stateSnapshot);
+        // add the current snapshot to the state snapshot array in the store
         addStateSnapshot(currentStateSnapshot);
         // give it a time stamp of when we got the message and console log that
         // add an object to the global zustand state with two key/values - timestamp, stateSnapshot
@@ -57,15 +56,10 @@ const App = () => {
     }
   };
 
+  // run the set up extension listner when the page loads
   useEffect(() => {
-    console.log('Extension mounted');
     setUpExtensionListner();
   }, []);
-
-  // to console log to test if the snapshot array in state is being updated
-  useEffect(() => {
-    console.log('State Snapshot Array Updated:', stateSnapshotArray);
-  }, [stateSnapshotArray]);
 
   return (
     <div className='flex h-screen'>
