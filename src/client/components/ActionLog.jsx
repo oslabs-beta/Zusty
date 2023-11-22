@@ -27,7 +27,7 @@ const ActionLog = () => {
       style={{ height: '800px', overflow: 'auto' }}
     >
       <h1 className='text-center text-xl front-text-bold'>Action Log</h1>
-      <button class='btn' onClick={addAction}>
+      <button className='btn' onClick={addAction}>
         Add Action
       </button>
       <div className='flex flex-col p-2 h-2/3'>
@@ -41,7 +41,7 @@ const ActionLog = () => {
             </div>
           );
         })}
-        <button class='btn' onClick={clearActions}>
+        <button className='btn' onClick={clearActions}>
           Clear Actions
         </button>
       </div>

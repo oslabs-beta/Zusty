@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useStore from './store/store';
 import D3Tree from './components/D3Tree';
 import Navigation from './components/NavBar';
@@ -9,6 +9,7 @@ import Store from './components/Store';
 
 const App = () => {
   const activeTab = useStore((state) => state.activeTab);
+  const { stateSnapshotArray, addStateSnapshot } = useStore();
 
   const treeData = {
     name: 'Board',
@@ -29,6 +30,42 @@ const App = () => {
       },
     ],
   };
+
+  let connected = false;
+  let port;
+  // getting state snapshots from injected script
+  const setUpExtensionListner = () => {
+    if (!connected) {
+      console.log('Connecting to chrome...');
+      port = chrome.runtime.connect('mlfjikfjladnjajemejbekfjgggjpmpe');
+      connected = true;
+    }
+
+    if (connected) {
+      console.log('Connected to chrome');
+      // listens to the message from the background.js
+      port.onMessage.addListener((message, sender, sendResponse) => {
+        console.log('MESSAGE RECIVED');
+        console.log({ message, sender, sendResponse });
+        // JSON parse message.stateSnapsot
+        console.log(JSON.parse(message.stateSnapshot));
+        let currentStateSnapshot = JSON.parse(message.stateSnapshot);
+        addStateSnapshot(currentStateSnapshot);
+        // give it a time stamp of when we got the message and console log that
+        // add an object to the global zustand state with two key/values - timestamp, stateSnapshot
+      });
+    }
+  };
+
+  useEffect(() => {
+    console.log('Extension mounted');
+    setUpExtensionListner();
+  }, []);
+
+  // to console log to test if the snapshot array in state is being updated
+  useEffect(() => {
+    console.log('State Snapshot Array Updated:', stateSnapshotArray);
+  }, [stateSnapshotArray]);
 
   return (
     <div className='flex h-screen'>
