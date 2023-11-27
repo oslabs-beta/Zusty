@@ -10,7 +10,8 @@ import Store from './components/Store';
 
 const App = () => {
   const activeTab = useStore((state) => state.activeTab);
-  const { stateSnapshotArray, addStateSnapshot } = useStore();
+  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot } =
+    useStore();
 
   const treeData = {
     name: 'Board',
@@ -46,18 +47,23 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
-        //current time in YYYY-MM-DDTHH:mm:ss format
-        const timestamp = new Date().toISOString().slice(0, 19);
-        // parsing the data we get back into JSON
-        let currentStateSnapshot = JSON.parse(message.stateSnapshot);
-        const currentStateWithTimestamp = {
-          timestamp,
-          stateSnapshot: currentStateSnapshot,
-        };
-        // add the current snapshot to the state snapshot array in the store
-        addStateSnapshot(currentStateWithTimestamp);
-        // give it a time stamp of when we got the message and console log that
-        // add an object to the global zustand state with two key/values - timestamp, stateSnapshot
+        console.log('prev state', message.prevState);
+        console.log('next state', message.nextState);
+        console.log('action', message.action);
+
+        if (message.body === 'actionAndStateSnapshot') {
+          console.log(message);
+          const actionSnapshot = message.action;
+          addActionSnapshot(actionSnapshot);
+
+          const timestamp = new Date().toISOString().slice(0, 19);
+          let currentStateSnapshot = JSON.parse(message.nextState);
+          const currentStateWithTimestamp = {
+            timestamp,
+            stateSnapshot: currentStateSnapshot,
+          };
+          addStateSnapshot(currentStateWithTimestamp);
+        }
       });
     }
   };
