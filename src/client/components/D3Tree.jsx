@@ -2,33 +2,40 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 const D3Tree = ({ data }) => {
+  //d3container set to null and useRef to not trigger re-renders when it changes.
   const d3Container = useRef(null);
 
   useEffect(() => {
+    //runs on mount, or whenever data changes, but may change it
     if (data && d3Container.current) {
       let transition = false;
+      //set transition to false before
+      //svg will select where the tree wil render
       const svg = d3.select(d3Container.current);
       svg.selectAll('*').remove();
-
+      //select all removes any other content to redraw the tree
+      //margin width height, dimensions for the d3tree
       const margin = { top: 20, right: 20, bottom: 30, left: 200 };
       const width = 960 - margin.left - margin.right;
       const height = 500 - margin.top - margin.bottom;
-
+      //g = groups, appends g to the svg and it will be positioned according to the given margins
       const g = svg
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
+      //set i to identify nodes later on and will convert the hierarchical data into a d3 hierarchy
       const tree = d3.tree().size([height, width]);
       let i = 0;
       const root = d3.hierarchy(data, (d) => d.children);
       root.x0 = height / 2;
       root.y0 = 0;
 
-      // Initially collapse all children of root's children
+      // Initially collapse all children of root's children --collapse
       root.children?.forEach(collapse);
 
       update(root);
 
+      //collapses all the nodes by mobing the children to _children
       function collapse(d) {
         if (d.children) {
           d._children = d.children;
@@ -36,7 +43,10 @@ const D3Tree = ({ data }) => {
           d.children = null;
         }
       }
-
+      //begin the update for the tree
+      //treeData is the the root, which contains all of the info of the tree
+      //node and links are arrays, that rep the nodes and the connections
+      //descendants are the children, links are what connect them
       function update(source) {
         transition = true;
         const treeData = tree(root);
@@ -50,7 +60,7 @@ const D3Tree = ({ data }) => {
         let node = g
           .selectAll('.node')
           .data(nodes, (d) => d.id || (d.id = ++i));
-
+        //
         let nodeEnter = node
           .enter()
           .append('g')
@@ -60,7 +70,7 @@ const D3Tree = ({ data }) => {
 
         nodeEnter
           .append('circle')
-          .attr('r', 8)
+          .attr('r', 10)
           .style('fill', (d) => (d._children ? '#ff8c00' : '#a9a9a9'));
 
         nodeEnter
@@ -71,7 +81,7 @@ const D3Tree = ({ data }) => {
             d.children || d._children ? 'end' : 'start'
           )
           .text((d) => d.data.name);
-
+        //basically all styling of teh nodes and how they enter
         // Update the nodes
         const nodeUpdate = nodeEnter.merge(node);
 
@@ -135,6 +145,7 @@ const D3Tree = ({ data }) => {
                     ${(s.y + d.y) / 2} ${d.x},
                     ${d.y} ${d.x}`;
         }
+        //curved paths for display purposes, could be straight or stepped i think
 
         // Toggle children on click
         function click(event, d) {

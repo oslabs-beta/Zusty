@@ -12,6 +12,8 @@ const useStore = create((set) => ({
     set((state) => ({
       stateSnapshotArray: [...state.stateSnapshotArray, snapshot],
     })),
+
+
 }));
 
 export default useStore;
