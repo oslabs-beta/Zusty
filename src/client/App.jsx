@@ -74,7 +74,7 @@ const App = () => {
   useEffect(() => {
     console.log('updateddata', d3data);
   }, [d3data]);
-  console.log('test');
+  console.log('ok');
   return (
     <div className="flex h-screen">
       <div className="w-1/3 bg-blue-100">
