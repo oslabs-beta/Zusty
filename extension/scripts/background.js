@@ -13,14 +13,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 //listens for messages from injected script and then sends messages to app.jsx
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.body === 'stateSnapshot' && backgroundPort) {
-    console.log('Background message == stateSnapshot');
-    // this sends the message to the app.jsx
+  if (request.body === 'actionAndStateSnapshot' && backgroundPort) {
+    console.log('actionAndStateSnapshot', { request });
     backgroundPort.postMessage({
-      // body will be stateSnapshot
+      // body will be actionLog
       body: request.body,
-      // this will be the snapshot of the state
-      stateSnapshot: request.stateSnapshot,
+      // this will be the action
+      action: request.action,
+      prevState: request.prevState,
+      nextState: request.nextState,
     });
   }
 });
@@ -43,7 +44,13 @@ chrome.runtime.onConnect.addListener((port) => {
       });
     }
   });
-  //listens to the message frmo content script
 });
+//declaring background port
+//adding a listener to our port
+//this listens for messages from app.jsx and has the ability to send messages to content script
+
+//injects content script into current users tab
+
+//sends a message to the previously injected script containing the previous state that the user's store should be udpated to
 
 //messageing system for content scripts, dev tools, and injected script for d3 tree
