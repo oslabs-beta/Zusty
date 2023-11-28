@@ -16,7 +16,7 @@ const StateSnapshots = () => {
       stateSnapshotArray.map((el) => (
         <div
           key={uuid()}
-          className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
+          className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12 overflow-auto'
         >
           <ul>
             {/* Display the formatted timestamp */}
