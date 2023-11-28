@@ -11,7 +11,7 @@ import Store from './components/Store';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot } =
+  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot, setPrevState, setNextState } =
     useStore();
 
   let connected = false;
@@ -45,6 +45,12 @@ const App = () => {
             stateSnapshot: currentStateSnapshot,
           };
           addStateSnapshot(currentStateWithTimestamp);
+
+          const pState = message.prevState;
+          setPrevState(pState);
+
+          const nState = message.nextState;
+          setNextState(nState);
         }
       });
     }
