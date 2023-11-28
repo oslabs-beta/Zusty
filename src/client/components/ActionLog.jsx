@@ -54,6 +54,9 @@ const ActionLog = () => {
             className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
           >
             <p>{el}</p>
+            <button class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
+              Diff
+            </button>
           </div>
         ))}
       </div>
