@@ -21,7 +21,7 @@ const ActionLog = () => {
   // const clearActions = () => {
   //   setActions([]);
   // };
-  const { actionSnapshotArray } = useStore();
+  const { actionSnapshotArray, prevState, nextState } = useStore();
 
   // Declare updatedRenderedSnapshots using useState
   const [updatedRenderedActions, setUpdatedRenderedActions] = useState([]);
@@ -42,17 +42,13 @@ const ActionLog = () => {
   // }, [actionSnapshotArray]);
 
   return (
-    <div
-      className='action-log border-b-2 border-blue-500'
-      style={{ height: '800px', overflow: 'auto' }}
-    >
-      <h1 className='text-center text-xl front-text-bold'>Action Log</h1>
-      <div className='flex flex-col p-2 h-2/3'>
+    <div className='action-log border-b-2 border-blue-500' style={{ display: 'flex', flexDirection: 'column', height: '800px' }}>
+    <h1 className='text-center text-xl font-bold'>Action Log</h1>
+    <div className='flex flex-row h-2/3'>
+      {/* Action Logs Column */}
+      <div className='flex flex-col w-3/4' style={{ overflowY: 'auto' }}>
         {actionSnapshotArray.map((el) => (
-          <div
-            key={uuid()}
-            className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
-          >
+          <div key={uuid()} className='text-center p-2 bg-blue-400 rounded-md my-2'>
             <p>{el}</p>
             <button class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>
               Diff
@@ -60,7 +56,14 @@ const ActionLog = () => {
           </div>
         ))}
       </div>
+  
+      {/* Previous State and State After Action Column */}
+      <div className='flex flex-col w-1/4' style={{ overflowY: 'auto' }}>
+        <p className='text-center p-2 bg-blue-400 rounded-md my-2'>Previous State: {prevState}</p>
+        <p className='text-center p-2 bg-blue-400 rounded-md my-2'>State After Action: {nextState}</p>
+      </div>
     </div>
+  </div>
   );
 };
 

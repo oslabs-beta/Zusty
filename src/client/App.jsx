@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import uuid from 'react-uuid';
 import useStore from './store/store';
 import D3Tree from './components/D3Tree';
@@ -9,32 +9,14 @@ import StateSnapshots from './components/StateSnapshots';
 import Store from './components/Store';
 
 const App = () => {
+  const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot } =
+  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot, setPrevState, setNextState } =
     useStore();
-
-  const treeData = {
-    name: 'Board',
-    children: [
-      {
-        name: 'Rows',
-        children: [{ name: 'Box' }, { name: 'Box' }],
-      },
-      {
-        name: 'Rows',
-        children: [
-          { name: 'Box' },
-          {
-            name: 'Box',
-            children: [{ name: 'Box-Child' }, { name: 'Box-Child' }],
-          },
-        ],
-      },
-    ],
-  };
 
   let connected = false;
   let port;
+
   // getting state snapshots from injected script
   const setUpExtensionListner = () => {
     if (!connected) {
@@ -63,6 +45,12 @@ const App = () => {
             stateSnapshot: currentStateSnapshot,
           };
           addStateSnapshot(currentStateWithTimestamp);
+
+          const pState = message.prevState;
+          setPrevState(pState);
+
+          const nState = message.nextState;
+          setNextState(nState);
         }
       });
     }
@@ -73,14 +61,31 @@ const App = () => {
     setUpExtensionListner();
   }, []);
 
+  useEffect(() => {
+    const messageListener = (message, sender, sendResponse) => {
+      if (message.type === 'ROOT_DIV' || message.type === 'REACT_COMPONENTS') {
+        console.log('frontend', message.data);
+        setD3data(message.data);
+        console.log('checking', d3data);
+      }
+    };
+    chrome.runtime.onMessage.addListener(messageListener);
+  }, [d3data]);
+
+  useEffect(() => {
+    console.log('updateddata', d3data);
+  }, [d3data]);
+  console.log('ok', d3data);
+
   return (
-    <div className='flex h-screen'>
-      <div className='w-1/3 bg-blue-100'>
+    <div className="flex h-screen">
+      <div className="w-1/3 bg-blue-100">
         <Navigation />
         <StateSnapshots />
       </div>
-      <div className='w-2/3'>
-        {activeTab === 'tree' && <D3Tree data={treeData} />}
+      {/* <TreeRender /> */}
+      <div className="w-2/3">
+        {activeTab === 'tree' && <D3Tree data={d3data} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
         {activeTab === 'storeBtn' && <Store />}

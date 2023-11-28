@@ -28,7 +28,7 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": ["storage", "tabs", "activeTab", "scripting"],
+  "permissions": ["storage", "tabs", "activeTab", "scripting", "https://*/*"],
   "host_permissions": ["<all_urls>"],
   "externally_connectable": {
     "matches": ["<all_urls>"]
