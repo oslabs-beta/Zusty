@@ -10,7 +10,7 @@ import Store from './components/Store';
 
 const App = () => {
   const activeTab = useStore((state) => state.activeTab);
-  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot } =
+  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot, setPrevState, setNextState } =
     useStore();
 
   const treeData = {
@@ -63,6 +63,12 @@ const App = () => {
             stateSnapshot: currentStateSnapshot,
           };
           addStateSnapshot(currentStateWithTimestamp);
+
+          const pState = message.prevState;
+          setPrevState(pState);
+
+          const nState = message.nextState;
+          setNextState(nState);
         }
       });
     }

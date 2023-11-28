@@ -5,6 +5,8 @@
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
+  prevState: "",
+  nextState: "",
   stateSnapshotArray: [],
   actionSnapshotArray: [],
   activeTab: 'tree',
@@ -17,6 +19,10 @@ const useStore = create((set) => ({
     set((state) => ({
       actionSnapshotArray: [...state.actionSnapshotArray, action],
     })),
+  setPrevState: (pState) => 
+    set({ prevState: pState }),
+  setNextState: (nState) => 
+    set({ nextState: nState }),
 }));
 
 // const useStore = create((set) => ({
