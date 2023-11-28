@@ -62,19 +62,15 @@ const App = () => {
         setD3data(message.data);
         console.log('checking', d3data);
       }
-      sendResponse({ status: 'Received in frontend' });
-      return true; // Indicates you wish to send a response asynchronously (if applicable)
     };
     chrome.runtime.onMessage.addListener(messageListener);
-    return () => {
-      chrome.runtime.onMessage.removeListener(messageListener);
-    };
-  }, []);
+  }, [d3data]);
 
   useEffect(() => {
     console.log('updateddata', d3data);
   }, [d3data]);
-  console.log('ok');
+  console.log('ok', d3data);
+
   return (
     <div className="flex h-screen">
       <div className="w-1/3 bg-blue-100">
