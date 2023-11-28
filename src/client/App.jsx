@@ -11,8 +11,13 @@ import Store from './components/Store';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot, setPrevState, setNextState } =
-    useStore();
+  const {
+    stateSnapshotArray,
+    addStateSnapshot,
+    addActionSnapshot,
+    setPrevState,
+    setNextState,
+  } = useStore();
 
   let connected = false;
   let port;
@@ -78,13 +83,13 @@ const App = () => {
   console.log('ok', d3data);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/3 bg-blue-100">
+    <div className='flex h-screen'>
+      <div className='w-1/3 bg-blue-100'>
         <Navigation />
         <StateSnapshots />
       </div>
       {/* <TreeRender /> */}
-      <div className="w-2/3">
+      <div className='w-2/3'>
         {activeTab === 'tree' && <D3Tree data={d3data} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}

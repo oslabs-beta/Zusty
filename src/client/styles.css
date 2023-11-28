@@ -31,3 +31,33 @@
   @apply hover:border-transparent;
   @apply rounded;
 }
+
+.diffContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.diffLeft {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  margin-right: 10px;
+  border: 2px solid darkblue;
+  color: darkblue;
+}
+
+.diffRight {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  border: 2px solid darkblue;
+  color: darkblue;
+}
+
+.diffClass {
+  position: sticky;
+  top: 0px;
+  overflow: scroll;
+}
