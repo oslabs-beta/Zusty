@@ -35,7 +35,6 @@
 .diffContainer {
   display: flex;
   flex-direction: row;
-  border: 2px solid darkblue;
   justify-content: center;
   align-items: center;
 }
@@ -55,4 +54,10 @@
   flex-direction: column;
   border: 2px solid darkblue;
   color: darkblue;
+}
+
+.diffClass {
+  position: sticky;
+  top: 0px;
+  overflow: scroll;
 }
