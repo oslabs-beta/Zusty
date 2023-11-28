@@ -31,6 +31,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 chrome.runtime.onConnect.addListener((port) => {
   backgroundPort = port;
+  console.log(port, "port")
 
   backgroundPort.onMessage.addListener((message, sender, sendResponse) => {
     if (message.body === 'runContent') {
