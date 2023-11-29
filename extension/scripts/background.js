@@ -2,17 +2,15 @@
 let backgroundPort;
 
 // backgroundjs finding a message frmo the content script type REACT COMPONENTS, then grab the request data
-
-
-  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.type === 'ROOT_DIV' || request.type === 'REACT_COMPONENTS') {
-      console.log('Received in background script:', request);
-
-      // Forward the message to the front end
-      chrome.runtime.sendMessage(request);
-    }
-  });
-
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === 'REACT_COMPONENT' && backgroundPort) {
+    console.log('Received in background script:', request);
+    backgroundPort.postMessage({
+      type: request.type,
+      data: request.data,
+    });
+  }
+});
 
 //listens for messages from injected script and then sends messages to app.jsx
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

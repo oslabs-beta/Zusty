@@ -7,6 +7,7 @@ import ActionLog from './components/ActionLog';
 import TimeTravel from './components/TimeTravel';
 import StateSnapshots from './components/StateSnapshots';
 import Store from './components/Store';
+import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 
 const App = () => {
   const [d3data, setD3data] = useState(null);
@@ -55,21 +56,25 @@ const App = () => {
     setUpExtensionListner();
   }, []);
 
-  useEffect(() => {
-    const messageListener = (message, sender, sendResponse) => {
-      if (message.type === 'ROOT_DIV' || message.type === 'REACT_COMPONENTS') {
-        console.log('frontend', message.data);
-        setD3data(message.data);
-        console.log('checking', d3data);
-      }
-    };
-    chrome.runtime.onMessage.addListener(messageListener);
-  }, [d3data]);
+  const listener = () => {
+    if (!connected) {
+      consolele.log('connecting to port');
+      port = chrome.runtime.connect();
+      connected = true;
+    }
+    if (connected) {
+      port.onMessage.addListener((message, sender, sendResponse) => {
+        console.log('d3data', message);
+        let data = JSON.parse(message.data);
+        console.log('d3', data);
+        setD3data(data);
+      });
+    }
+  };
 
   useEffect(() => {
-    console.log('updateddata', d3data);
-  }, [d3data]);
-  console.log('ok', d3data);
+    listener();
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -79,7 +84,8 @@ const App = () => {
       </div>
       {/* <TreeRender /> */}
       <div className="w-2/3">
-        {activeTab === 'tree' && <D3Tree data={d3data} />}
+        {activeTab === 'tree' && <ReactD3Tree data={d3data} />}
+        {/* {activeTab === 'tree' && <D3Tree data={d3data} />} */}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
         {activeTab === 'storeBtn' && <Store />}
