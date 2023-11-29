@@ -1,4 +1,3 @@
-// time travel component
 import React, { useEffect, useState } from 'react';
 import uuid from 'react-uuid';
 

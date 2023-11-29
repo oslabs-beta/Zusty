@@ -1,5 +1,3 @@
-// button to render the component tree
-
 import React from 'react';
 import useStore from '../store/store';
 
