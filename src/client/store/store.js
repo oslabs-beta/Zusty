@@ -1,16 +1,13 @@
-// Zustand store
-// to store previous state snapshots
-// tree components?
-
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
-  prevState: "",
-  nextState: "",
+  prevState: null,
+  nextState: null,
   stateSnapshotArray: [],
   actionSnapshotArray: [],
+  diffArray: [],
   activeTab: 'tree',
-  setActiveTab: (activeTab) => set({ activeTab }), // Corrected usage of set
+  setActiveTab: (activeTab) => set({ activeTab }),
   addStateSnapshot: (snapshot) =>
     set((state) => ({
       stateSnapshotArray: [...state.stateSnapshotArray, snapshot],
@@ -19,20 +16,12 @@ const useStore = create((set) => ({
     set((state) => ({
       actionSnapshotArray: [...state.actionSnapshotArray, action],
     })),
-  setPrevState: (pState) => 
-    set({ prevState: pState }),
-  setNextState: (nState) => 
-    set({ nextState: nState }),
+  addDiffSnapshot: (diff) =>
+    set((state) => ({
+      diffArray: [...state.diffArray, diff],
+    })),
+  setPrevState: (pState) => set({ prevState: pState }),
+  setNextState: (nState) => set({ nextState: nState }),
 }));
-
-// const useStore = create((set) => ({
-//   stateSnapshotArray: [],
-//   activeTab: 'tree',
-//   setActiveTab: (activeTab) => set(() => ({ activeTab })),
-//   addStateSnapshot: (snapshot) =>
-//     set((state) => ({
-//       stateSnapshotArray: [...state.stateSnapshotArray, snapshot],
-//     })),
-// }));
 
 export default useStore;
