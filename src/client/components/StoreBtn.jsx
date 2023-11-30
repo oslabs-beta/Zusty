@@ -1,4 +1,3 @@
-// button to render the zustand store
 import React from 'react';
 import useStore from '../store/store';
 

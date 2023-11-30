@@ -12,8 +12,7 @@ import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { stateSnapshotArray, addStateSnapshot, addActionSnapshot } =
-    useStore();
+  const { addStateSnapshot, addActionSnapshot, addDiffSnapshot } = useStore();
 
   let connected = false;
   let port;
@@ -21,7 +20,6 @@ const App = () => {
   // getting state snapshots from injected script
   const setUpExtensionListner = () => {
     if (!connected) {
-      console.log('Connecting to chrome...');
       // connect to chrome runtime
       port = chrome.runtime.connect();
       connected = true;
@@ -30,12 +28,7 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('prev state', message.prevState);
-        console.log('next state', message.nextState);
-        console.log('action', message.action);
-
         if (message.body === 'actionAndStateSnapshot') {
-          console.log(message);
           const actionSnapshot = message.action;
           addActionSnapshot(actionSnapshot);
 
@@ -46,6 +39,16 @@ const App = () => {
             stateSnapshot: currentStateSnapshot,
           };
           addStateSnapshot(currentStateWithTimestamp);
+
+          let prevState = JSON.parse(message.prevState);
+          let nextState = JSON.parse(message.nextState);
+          const currentDiffWithTimestamp = {
+            action: message.action,
+            prevState,
+            nextState,
+          };
+
+          addDiffSnapshot(currentDiffWithTimestamp);
         }
       });
     }
@@ -58,7 +61,7 @@ const App = () => {
 
   const listener = () => {
     if (!connected) {
-      consolele.log('connecting to port');
+      console.log('connecting to port');
       port = chrome.runtime.connect();
       connected = true;
     }
@@ -67,7 +70,7 @@ const App = () => {
         console.log('d3data', message);
         let data = JSON.parse(message.data);
         console.log('d3', data);
-        setD3data(data);
+        useStore.getState().setD3data(data);
       });
     }
   };

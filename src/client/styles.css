@@ -31,3 +31,49 @@
   @apply hover:border-transparent;
   @apply rounded;
 }
+
+.diffContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.diffLeft {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  margin-right: 10px;
+  border: 2px solid darkblue;
+  color: darkblue;
+}
+
+.diffRight {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  border: 2px solid darkblue;
+  color: darkblue;
+}
+
+.diffClass {
+  position: sticky;
+  top: 0px;
+  overflow: scroll;
+}
+
+.node__root > circle {
+  fill: rgb(81, 81, 240);
+  stroke: none;
+  r: 12;
+}
+
+.node__branch > circle {
+  fill: palevioletred;
+}
+
+.node__leaf > circle {
+  fill: paleturquoise;
+  stroke: none;
+  r: 10;
+}

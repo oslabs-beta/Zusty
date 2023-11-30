@@ -3,106 +3,102 @@ const store = window.store;
 
 console.log('injected script loaded');
 
-// store.subscribe(console.log);
-// subscribe to their store to get any changes that are made
-store.subscribe(() => {
-  const stateSnapshot = JSON.stringify(store.getState());
-  // this goes to the background.js
-  window.postMessage({ body: 'stateSnapshot', stateSnapshot });
-});
-
 function findReactComponents(element) {
   const components = [];
 
-  function findComponents(el) {
-    if (el.nodeType === Node.ELEMENT_NODE) {
-      // Check if the element has a React component instance attached
-      const key = Object.keys(el).find((key) =>
-        key.startsWith('__reactFiber$')
-      );
-      const fiberNode = el[key];
+  function findComponentNames(fiberNode) {
+    // Check if the node is a React component and has a name, excluding 'div' and 'h1'
+    const isComponent =
+      fiberNode &&
+      fiberNode.elementType &&
+      fiberNode.elementType.name &&
+      fiberNode.elementType.name !== 'div' &&
+      fiberNode.elementType.name !== 'h1';
+    const isNotHtmlElement =
+      fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
 
-      if (fiberNode) {
-        const component = {
-          name: fiberNode.type?.name || 'Unknown',
-          props: fiberNode.memoizedProps,
-          state: fiberNode.memoizedState,
-          // Add more properties as needed
-        };
-        components.push(component);
+    if (isComponent || isNotHtmlElement) {
+      // Only push component names that are not 'div' or 'h1'
+      const name = fiberNode.elementType.name || fiberNode.type.name;
+      components.push(name);
+    }
+
+    if (
+      fiberNode &&
+      fiberNode.stateNode &&
+      fiberNode.stateNode.nodeType === 1
+    ) {
+      let childFiber = fiberNode.child;
+      while (childFiber) {
+        findComponentNames(childFiber);
+        childFiber = childFiber.sibling;
       }
-
-      // Recursively check child elements
-      Array.from(el.children).forEach(findComponents);
     }
   }
 
-  findComponents(element);
+  Array.from(element.children).forEach((child) => {
+    // Find the internal React fiber node
+    const key = Object.keys(child).find((key) =>
+      key.startsWith('__reactFiber$')
+    );
+    const fiberNode = child[key];
+
+    if (fiberNode) {
+      findComponentNames(fiberNode);
+    }
+  });
+
   return components;
 }
 
-const rootElement = document.getElementById('root'); // Or any other root element of the React app
+const rootElement = document.getElementById('root');
 const reactComponents = findReactComponents(rootElement);
 console.log('ropt', rootElement);
 console.log('reactcomp', reactComponents);
 
 function hierarchyConv(state, maxDepth = 10) {
   const rootNode = {
-    name: 'root',
+    name: 'state',
     children: [],
   };
 
-  // New set to keep track of visited nodes to handle circular references
-  const visited = new WeakSet();
+  const visited = new Set();
 
   function addNodeToTree(key, value, parent, depth) {
-    // Check for maximum depth to avoid too deep recursion
     if (depth > maxDepth) {
-      parent.children.push({
-        name: key,
-        attributes: { value: '[Max Depth Exceeded]' },
-      });
+      parent.children.push({ name: '[Max Depth Exceeded]' });
       return;
     }
 
-    // Check for circular references
     if (visited.has(value)) {
-      parent.children.push({ name: key, attributes: { value: '[Circular]' } });
+      parent.children.push({ name: '[Circular]' });
       return;
     }
 
     if (typeof value === 'object' && value !== null) {
       visited.add(value);
-    }
 
-    const newNode = {
-      name: key,
-      children: [],
-    };
-
-    if (Array.isArray(value)) {
-      value.forEach((item, index) => {
-        addNodeToTree(`[${index}]`, item, newNode, depth + 1);
-      });
-    } else if (
-      typeof value === 'object' &&
-      value !== null &&
-      Object.keys(value).length > 0
-    ) {
+      const newNode = { name: key, children: [] };
       Object.entries(value).forEach(([subKey, subValue]) => {
         addNodeToTree(subKey, subValue, newNode, depth + 1);
       });
-    } else {
-      newNode.attributes = { value: value };
-    }
 
-    parent.children.push(newNode);
+      if (newNode.children.length === 0) {
+        delete newNode.children;
+      } else {
+        parent.children.push(newNode);
+      }
+    } else {
+      // When the value is not an object, use it as the name of the node.
+      parent.children.push({ name: String(value) });
+    }
   }
 
-  // Start recursion with initial depth of 0
-  addNodeToTree('state', state, rootNode, 0);
-  console.log('Root Node:', rootNode);
-  return rootNode.children[0];
+  Object.entries(state).forEach(([key, value]) => {
+    addNodeToTree(key, value, rootNode, 0);
+  });
+
+  return rootNode;
 }
 const d3hierarchy = hierarchyConv(rootElement);
 const d3hierarchy2 = hierarchyConv(reactComponents);
@@ -110,7 +106,7 @@ const d3hierarchy2 = hierarchyConv(reactComponents);
 console.log('REACT DIVS', d3hierarchy);
 console.log('POTENTIAL HIER', d3hierarchy2);
 
-// Send the components data to the extension
+// Send the components data to the contentscript and frontend
 
 // console.log('CHECK', d3hierarchy2);
 window.postMessage({

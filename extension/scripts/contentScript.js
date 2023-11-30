@@ -4,17 +4,17 @@ window.addEventListener('message', (event) => {
 });
 
 // listens to messages from background, send the message to the injectedScript
-chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-  if (req.body === 'TimeTravel') {
-    window.postMessage({
-      body: 'TimeTravel',
-      previousState: req.previousState,
-    });
-  }
-});
+// chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
+//   if (req.body === 'TimeTravel') {
+//     window.postMessage({
+//       body: 'TimeTravel',
+//       previousState: req.previousState,
+//     });
+//   }
+// });
 
 window.addEventListener('message', (event) => {
-  if (event.source === window && event.data.type === 'REACT_COMPONENTS') {
+  if (event.source === window && event.data.type === 'REACT_COMPONENT') {
     chrome.runtime.sendMessage(event.data);
     console.log('listening for d3data', event.data);
   }

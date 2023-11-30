@@ -1,61 +1,72 @@
-// Component to show what actions triggered state change
 import React, { useEffect, useState } from 'react';
 import uuid from 'react-uuid';
 import useStore from '../store/store';
+import Diff from './Diff';
 
 const ActionLog = () => {
-  // const [actions, setActions] = useState([
-  //   'state 1',
-  //   'state 2',
-  //   'state 3',
-  //   'state 4',
-  //   'state 5',
-  // ]);
+  const { diffArray, setPrevState, setNextState } = useStore();
+  const [selectedDiv, setSelectedDiv] = useState(null);
 
-  // const addAction = () => {
-  //   const item = uuid();
-  //   const newState = [...actions, item];
-  //   setActions(newState);
-  // };
+  console.log(diffArray);
 
-  // const clearActions = () => {
-  //   setActions([]);
-  // };
-  const { actionSnapshotArray } = useStore();
+  // Function to handle the click event on the "Diff" button
+  const handleDiffButtonClick = (diffObj) => {
+    // Setting the previous and next state based on the clicked diff
+    setPrevState(diffObj.prevState);
+    setNextState(diffObj.nextState);
 
-  // Declare updatedRenderedSnapshots using useState
-  const [updatedRenderedActions, setUpdatedRenderedActions] = useState([]);
+    // set the selected div to be diff Obj
+    setSelectedDiv(diffObj);
+  };
 
-  // useEffect so that we get any updates when a snapshot is added to the stateSnapshotArray in the store
-  // useEffect(() => {
-  //   // Update the state using setUpdatedRenderedSnapshots
-  //   setUpdatedRenderedActions(
-  //     actionSnapshotArray.map((el) => (
-  //       <div
-  //         key={uuid()}
-  //         className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
-  //       >
-  //         <p>{el}</p>
-  //       </div>
-  //     ))
-  //   );
-  // }, [actionSnapshotArray]);
-
+  // Rendering the component structure
   return (
-    <div
-      className='action-log border-b-2 border-blue-500'
-      style={{ height: '800px', overflow: 'auto' }}
-    >
-      <h1 className='text-center text-xl front-text-bold'>Action Log</h1>
-      <div className='flex flex-col p-2 h-2/3'>
-        {actionSnapshotArray.map((el) => (
+    <div>
+      <div
+        className='action-log border-b-2 border-blue-500'
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '650px',
+        }}
+      >
+        <h1 className='text-center text-xl font-bold'>Action Log</h1>
+        <div className='flex flex-col h-fit' style={{ overflowY: 'auto' }}>
+          {/* Diff Logs Column */}
           <div
-            key={uuid()}
-            className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12'
+            className='flex flex-col w-2/3 justify-self-center'
+            style={{ overflowY: 'auto' }}
           >
-            <p>{el}</p>
+            {/* Mapping over diffArray to display each diff */}
+            {diffArray.map((diffObj) => (
+              <div
+                key={uuid()}
+                // Applying dynamic styling based on the selected diff
+                className={
+                  selectedDiv === diffObj
+                    ? 'text-center p-2 bg-yellow-400 rounded-md my-2'
+                    : 'text-center p-2 bg-blue-400 rounded-md my-2'
+                }
+              >
+                <p>{diffObj.action}</p>
+                {/* Button to trigger the "Diff" action */}
+                <button
+                  className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+                  // Click event handler to update the previous and next state
+                  onClick={() => {
+                    handleDiffButtonClick(diffObj);
+                  }}
+                >
+                  Diff
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+      </div>
+      {/* Rendering the Diff component */}
+      <div className='diffClass'>
+        <Diff />
       </div>
     </div>
   );
