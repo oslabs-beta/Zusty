@@ -7,7 +7,7 @@ import ActionLogBtn from './ActionLogBtn';
 
 const Navigation = () => {
   return (
-    <div className='flex justify-around my-2'>
+    <div className="flex flex-shrink justify-between my-2">
       <ActionLogBtn />
       <TimeTravelBtn />
       <TreeBtn />
