@@ -8,56 +8,12 @@
   stroke-width: 2px;
 }
 
-.navBtn {
-  @apply bg-blue-700;
-  @apply hover:bg-blue-500;
-  @apply text-white;
-  @apply font-bold;
-  @apply py-2;
-  @apply px-4;
-  @apply rounded-full;
-}
-
-.btn {
-  @apply bg-transparent;
-  @apply hover:bg-blue-500;
-  @apply text-blue-700;
-  @apply font-semibold;
-  @apply hover:text-white;
-  @apply py-2;
-  @apply px-4;
-  @apply border;
-  @apply border-blue-500;
-  @apply hover:border-transparent;
-  @apply rounded;
-}
-
-.diffContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.diffLeft {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  margin-right: 10px;
-  border: 2px solid darkblue;
-  color: darkblue;
-}
-
-.diffRight {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  border: 2px solid darkblue;
-  color: darkblue;
-}
-
 .diffClass {
   position: sticky;
   top: 0px;
   overflow: scroll;
+}
+
+.custom-width {
+  width: 580px;
 }
