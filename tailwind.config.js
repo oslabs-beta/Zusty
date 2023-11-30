@@ -5,15 +5,13 @@ module.exports = {
     colors: {
       'dk-navy': '#0f172a',
       'lt-grey': '#94a3b8',
-      'white': '#FFFFFF',
-      'blue': '#38bdf8',
+      white: '#FFFFFF',
+      blue: '#38bdf8',
+      gray: '#ededed',
     },
-  
-    screens: {
-      
-    },
+
+    screens: {},
     extend: {},
   },
   plugins: ['postcss-preset-env'],
 };
-  

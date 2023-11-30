@@ -23,14 +23,14 @@ const ActionLog = () => {
   return (
     <div>
       <div
-        className="action-log border-b-2 border-lt-grey"
+        className="action-log border-b-2 border-lt-grey border-none m-3"
         style={{
           display: 'flex',
           flexDirection: 'column',
           height: '650px',
         }}
       >
-        <h1 className="text-center text-xl font-bold text-lt-grey">
+        <h1 className="text-center text-xl font-bold text-white m-2">
           Action Log
         </h1>
         <div className="flex flex-col h-fit" style={{ overflowY: 'auto' }}>
@@ -46,8 +46,8 @@ const ActionLog = () => {
                 // Applying dynamic styling based on the selected diff
                 className={
                   selectedDiv === diffObj
-                    ? 'flex flex-row justify-between w-96 text-center p-2 bg-blue rounded-md my-2'
-                    : 'flex flex-row justify-between w-96 text-center p-2 bg-lt-grey rounded-md my-2'
+                    ? 'flex flex-row justify-between w-96 text-center p-2 bg-blue rounded-md m-3'
+                    : 'flex flex-row justify-between w-96 text-center p-2 bg-lt-grey rounded-md m-3 '
                 }
               >
                 <p className="flex items-center justify-self-center pr-5 font-bold text-dk-navy">
@@ -69,7 +69,7 @@ const ActionLog = () => {
         </div>
       </div>
       {/* Rendering the Diff component */}
-      <div className="diffClass">
+      <div className="mb-0">
         <Diff />
       </div>
     </div>

@@ -45,9 +45,9 @@ const StateSnapshots = () => {
   return (
     <div
       className="flex flex-col border-t-2 border-lt-grey w-full m-auto"
-      style={{ height: '1000px', overflow: 'auto' }}
+      style={{ height: '93vh', overflow: 'auto' }}
     >
-      <h1 className="text-center text-xl font-bold text-lt-grey my-5">
+      <h1 className="text-center text-xl font-bold text-white my-5">
         State Snapshots
       </h1>
       <div className="flex flex-col justify-center items-center gap-1.5">

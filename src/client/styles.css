@@ -51,5 +51,5 @@
 ::-webkit-scrollbar-thumb {
   background-color: #94a3b8;
   border-radius: 5px;
-  border: none;
+  border: 2px solid #0f172a;
 }
