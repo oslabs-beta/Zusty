@@ -22,6 +22,9 @@ const useStore = create((set) => ({
     })),
   setPrevState: (pState) => set({ prevState: pState }),
   setNextState: (nState) => set({ nextState: nState }),
+
+  d3data: null,
+  setD3data: (data) => set({ d3data: data }),
 }));
 
 export default useStore;

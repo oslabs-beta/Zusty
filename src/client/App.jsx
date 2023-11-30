@@ -7,6 +7,7 @@ import ActionLog from './components/ActionLog';
 import TimeTravel from './components/TimeTravel';
 import StateSnapshots from './components/StateSnapshots';
 import Store from './components/Store';
+import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 
 const App = () => {
   const [d3data, setD3data] = useState(null);
@@ -19,7 +20,7 @@ const App = () => {
   // getting state snapshots from injected script
   const setUpExtensionListner = () => {
     if (!connected) {
-      // connect to chrome runtime
+
       port = chrome.runtime.connect();
       connected = true;
     }
@@ -27,7 +28,10 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
+ 
+
         if (message.body === 'actionAndStateSnapshot') {
+          console.log(message);
           const actionSnapshot = message.action;
           addActionSnapshot(actionSnapshot);
 
@@ -58,31 +62,35 @@ const App = () => {
     setUpExtensionListner();
   }, []);
 
-  useEffect(() => {
-    const messageListener = (message, sender, sendResponse) => {
-      if (message.type === 'ROOT_DIV' || message.type === 'REACT_COMPONENTS') {
-        console.log('frontend', message.data);
-        setD3data(message.data);
-        console.log('checking', d3data);
-      }
-    };
-    chrome.runtime.onMessage.addListener(messageListener);
-  }, [d3data]);
+  const listener = () => {
+    if (!connected) {
+      console.log('connecting to port');
+      port = chrome.runtime.connect();
+      connected = true;
+    }
+    if (connected) {
+      port.onMessage.addListener((message, sender, sendResponse) => {
+        console.log('d3data', message);
+        let data = JSON.parse(message.data);
+        console.log('d3', data);
+        useStore.getState().setD3data(data);
+      });
+    }
+  };
 
   useEffect(() => {
-    console.log('updateddata', d3data);
-  }, [d3data]);
-  console.log('ok', d3data);
+    listener();
+  }, []);
 
   return (
-    <div className='flex h-screen'>
-      <div className='w-1/3 bg-dk-navy border-r-2 border-lt-grey'>
+    <div className="flex h-screen">
+      <div className="w-1/3 bg-dk-navy border-r-2 border-lt-grey">
         <Navigation />
         <StateSnapshots />
       </div>
       {/* <TreeRender /> */}
-      <div className='w-2/3 bg-dk-navy'>
-        {activeTab === 'tree' && <D3Tree data={d3data} />}
+      <div className="w-2/3 bg-dk-navy">
+        {activeTab === 'tree' && <ReactD3Tree data={d3data} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
         {activeTab === 'storeBtn' && <Store />}

@@ -14,6 +14,27 @@
   overflow: scroll;
 }
 
+.node__root > circle {
+  fill: paleturquoise;
+  stroke: none;
+  r: 15;
+}
+
+#treeWrapper path {
+  stroke: white;
+}
+#treeWrapper text {
+  fill: white; /* Change 'green' to your desired color */
+}
+.node__branch > circle {
+  fill: palevioletred;
+}
+
+.node__leaf > circle {
+  fill: paleturquoise;
+  stroke: none;
+  r: 15;
+}
 .custom-width {
   width: 580px;
 }
