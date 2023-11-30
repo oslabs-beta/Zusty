@@ -11,13 +11,7 @@ import Store from './components/Store';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const {
-    stateSnapshotArray,
-    addStateSnapshot,
-    addActionSnapshot,
-    setPrevState,
-    setNextState,
-  } = useStore();
+  const { addStateSnapshot, addActionSnapshot, addDiffSnapshot } = useStore();
 
   let connected = false;
   let port;
@@ -25,7 +19,6 @@ const App = () => {
   // getting state snapshots from injected script
   const setUpExtensionListner = () => {
     if (!connected) {
-      console.log('Connecting to chrome...');
       // connect to chrome runtime
       port = chrome.runtime.connect();
       connected = true;
@@ -34,12 +27,7 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('prev state', message.prevState);
-        console.log('next state', message.nextState);
-        console.log('action', message.action);
-
         if (message.body === 'actionAndStateSnapshot') {
-          console.log(message);
           const actionSnapshot = message.action;
           addActionSnapshot(actionSnapshot);
 
@@ -51,11 +39,15 @@ const App = () => {
           };
           addStateSnapshot(currentStateWithTimestamp);
 
-          const pState = message.prevState;
-          setPrevState(pState);
+          let prevState = JSON.parse(message.prevState);
+          let nextState = JSON.parse(message.nextState);
+          const currentDiffWithTimestamp = {
+            action: message.action,
+            prevState,
+            nextState,
+          };
 
-          const nState = message.nextState;
-          setNextState(nState);
+          addDiffSnapshot(currentDiffWithTimestamp);
         }
       });
     }
@@ -84,12 +76,12 @@ const App = () => {
 
   return (
     <div className='flex h-screen'>
-      <div className='w-1/3 bg-blue-100'>
+      <div className='w-1/3 bg-dk-navy border-r-2 border-lt-grey'>
         <Navigation />
         <StateSnapshots />
       </div>
       {/* <TreeRender /> */}
-      <div className='w-2/3'>
+      <div className='w-2/3 bg-dk-navy'>
         {activeTab === 'tree' && <D3Tree data={d3data} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
