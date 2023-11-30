@@ -20,7 +20,7 @@ const App = () => {
   // getting state snapshots from injected script
   const setUpExtensionListner = () => {
     if (!connected) {
-      // connect to chrome runtime
+
       port = chrome.runtime.connect();
       connected = true;
     }
@@ -28,7 +28,10 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
+ 
+
         if (message.body === 'actionAndStateSnapshot') {
+          console.log(message);
           const actionSnapshot = message.action;
           addActionSnapshot(actionSnapshot);
 
@@ -81,14 +84,13 @@ const App = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="w-1/3 bg-blue-100">
+      <div className="w-1/3 bg-dk-navy border-r-2 border-lt-grey">
         <Navigation />
         <StateSnapshots />
       </div>
       {/* <TreeRender /> */}
-      <div className="w-2/3">
+      <div className="w-2/3 bg-dk-navy">
         {activeTab === 'tree' && <ReactD3Tree data={d3data} />}
-        {/* {activeTab === 'tree' && <D3Tree data={d3data} />} */}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
         {activeTab === 'storeBtn' && <Store />}

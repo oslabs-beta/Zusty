@@ -16,7 +16,7 @@ const StateSnapshots = () => {
       stateSnapshotArray.map((el) => (
         <div
           key={uuid()}
-          className='text-center p-2 bg-blue-400 rounded-md my-2 w-9/12 overflow-auto'
+          className='flex flex-col justify-center item-center text-center p-2 bg-lt-grey text-dk-navy rounded-md my-2 w-9/12 overflow-auto'
         >
           <ul>
             {/* Display the formatted timestamp */}
@@ -37,11 +37,11 @@ const StateSnapshots = () => {
 
   return (
     <div
-      className='border-solid border-2 border-blue-600 w-full m-auto'
+      className='flex flex-col border-t-2 border-lt-grey w-full m-auto'
       style={{ height: '800px', overflow: 'auto' }}
     >
-      <h1 className='text-center text-xl front-text-bold'>State Snapshots</h1>
-      <div>{updatedRenderedSnapshots}</div>
+      <h1 className='text-center text-xl font-bold text-lt-grey'>State Snapshots</h1>
+      <div className = 'flex flex-col justify-center items-center'>{updatedRenderedSnapshots}</div>
     </div>
   );
 };

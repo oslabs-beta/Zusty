@@ -8,54 +8,6 @@
   stroke-width: 2px;
 }
 
-.navBtn {
-  @apply bg-blue-700;
-  @apply hover:bg-blue-500;
-  @apply text-white;
-  @apply font-bold;
-  @apply py-2;
-  @apply px-4;
-  @apply rounded-full;
-}
-
-.btn {
-  @apply bg-transparent;
-  @apply hover:bg-blue-500;
-  @apply text-blue-700;
-  @apply font-semibold;
-  @apply hover:text-white;
-  @apply py-2;
-  @apply px-4;
-  @apply border;
-  @apply border-blue-500;
-  @apply hover:border-transparent;
-  @apply rounded;
-}
-
-.diffContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.diffLeft {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  margin-right: 10px;
-  border: 2px solid darkblue;
-  color: darkblue;
-}
-
-.diffRight {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  border: 2px solid darkblue;
-  color: darkblue;
-}
-
 .diffClass {
   position: sticky;
   top: 0px;
@@ -63,11 +15,17 @@
 }
 
 .node__root > circle {
-  fill: rgb(81, 81, 240);
+  fill: paleturquoise;
   stroke: none;
-  r: 12;
+  r: 15;
 }
 
+#treeWrapper path {
+  stroke: white;
+}
+#treeWrapper text {
+  fill: white; /* Change 'green' to your desired color */
+}
 .node__branch > circle {
   fill: palevioletred;
 }
@@ -75,5 +33,8 @@
 .node__leaf > circle {
   fill: paleturquoise;
   stroke: none;
-  r: 10;
+  r: 15;
+}
+.custom-width {
+  width: 580px;
 }
