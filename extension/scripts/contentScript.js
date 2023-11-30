@@ -3,16 +3,6 @@ window.addEventListener('message', (event) => {
   chrome.runtime.sendMessage(event.data);
 });
 
-// listens to messages from background, send the message to the injectedScript
-// chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-//   if (req.body === 'TimeTravel') {
-//     window.postMessage({
-//       body: 'TimeTravel',
-//       previousState: req.previousState,
-//     });
-//   }
-// });
-
 // inject the injectedScript.js
 const injectScript = (file, node) => {
   const body0 = document.getElementsByTagName(node)[0];
