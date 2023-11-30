@@ -2,8 +2,6 @@
 const store = window.store;
 
 console.log('injected script loaded');
-<<<<<<< HEAD
-=======
 
 function findReactComponents(element) {
   const components = [];
@@ -120,4 +118,3 @@ window.postMessage({
   type: 'ROOT_DIV',
   data: JSON.stringify(d3hierarchy),
 });
->>>>>>> dev
