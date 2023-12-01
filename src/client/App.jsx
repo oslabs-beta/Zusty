@@ -29,6 +29,7 @@ const App = () => {
       port.onMessage.addListener((message, sender, sendResponse) => {
         if (message.body === 'actionAndStateSnapshot') {
           console.log(message);
+          // Might not be using this:
           const actionSnapshot = message.action;
           addActionSnapshot(actionSnapshot);
 
@@ -44,6 +45,7 @@ const App = () => {
           let nextState = JSON.parse(message.nextState);
           const currentDiffWithTimestamp = {
             action: message.action,
+            actionCompleteTime: message.actionCompleteTime,
             prevState,
             nextState,
           };
