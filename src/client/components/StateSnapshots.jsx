@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactJson from '@microlink/react-json-view';
 import useStore from '../store/store';
 import uuid from 'react-uuid';
 
@@ -30,13 +31,19 @@ const StateSnapshots = () => {
               {`${new Date(el.timestamp).toLocaleString()}`}
             </li>
             {showAsJSON ? (
-              <li
-                className='bg-white bg-opacity-20 hover:bg-opacity-40 rounded-lg p-2 mt-2 mb-2'
-                key={uuid()}
-              >
-                {JSON.stringify(el.stateSnapshot)}
-              </li>
+              <ReactJson
+                src={el.stateSnapshot}
+                theme='hopscotch'
+                displayDataTypes={false}
+                enableClipboard={false}
+              />
             ) : (
+              // <li
+              //   className='bg-white bg-opacity-20 hover:bg-opacity-40 rounded-lg p-2 mt-2 mb-2'
+              //   key={uuid()}
+              // >
+              //   {JSON.stringify(el.stateSnapshot)}
+              // </li>
               Object.keys(el.stateSnapshot).map((key) => (
                 <li
                   className='bg-white bg-opacity-20 hover:bg-opacity-40 rounded-lg p-2 mt-2 mb-2'
