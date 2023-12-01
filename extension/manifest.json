@@ -28,9 +28,14 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": ["storage", "tabs", "activeTab", "scripting", "https://*/*"],
+  "permissions": ["storage", "tabs", "activeTab", "scripting"],
   "host_permissions": ["<all_urls>"],
   "externally_connectable": {
     "matches": ["<all_urls>"]
+  },
+  "icons": {
+    "128": "./icons/128.png",
+    "32": "./icons/32.png",
+    "16": "./icons/16.png"
   }
 }

@@ -5,9 +5,9 @@ module.exports = {
     colors: {
       'dk-navy': '#0f172a',
       'lt-grey': '#94a3b8',
+      'dk-white': '#ededed',
       white: '#FFFFFF',
       blue: '#38bdf8',
-      gray: '#ededed',
     },
 
     screens: {},

@@ -10,7 +10,7 @@ const Diff = () => {
     // Mapping over entries (key-value pairs) of the object
     if (obj && typeof obj === 'object') {
       return Object.entries(obj).map(([key, value]) => (
-        <li className="text-gray text-sm text-left m-2" key={key}>
+        <li className="text-white text-sm text-left m-2" key={key}>
           <strong className="text-white">{key}:</strong> {JSON.stringify(value)}
         </li>
       ));

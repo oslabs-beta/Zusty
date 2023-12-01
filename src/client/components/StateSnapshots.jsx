@@ -16,11 +16,11 @@ const StateSnapshots = () => {
       stateSnapshotArray.map((el) => (
         <div
           key={uuid()}
-          className="flex flex-col justify-center item-center text-left p-2 bg-lt-grey text-dk-navy rounded-md my-2 w-11/12 overflow-auto backdrop-opacity-30	hover:backdrop-opacity-100"
+          className="flex flex-col justify-center item-center text-left p-2 bg-lt-grey text-dk-navy rounded-md my-2 w-11/12 overflow-auto bg-opacity-60 shadow-bg-orange"
         >
           <ul>
             <li
-              className="bg-white bg-opacity-20 hover:bg-opacity-40 rounded-lg p-2 mt-2 mb-2"
+              className="bg-lt-grey bg-opacity-60 hover:bg-opacity-100 rounded-md p-2 mt-2 mb-2"
               key={uuid()}
             >
               <span className="font-bold mr-2">Timestamp:</span>
@@ -29,7 +29,7 @@ const StateSnapshots = () => {
             {/* Display the key-value pairs */}
             {Object.keys(el.stateSnapshot).map((key) => (
               <li
-                className="bg-white bg-opacity-20 hover:bg-opacity-40 rounded-lg p-2 mt-2 mb-2"
+                className="bg-lt-grey bg-opacity-30 hover:bg-opacity-100 rounded-md p-2 mt-2 mb-2"
                 key={uuid()}
               >
                 <span className="font-bold mr-2">{`${key}:`}</span>
