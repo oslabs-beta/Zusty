@@ -7,8 +7,6 @@ const ActionLog = () => {
   const { diffArray, setPrevState, setNextState } = useStore();
   const [selectedDiv, setSelectedDiv] = useState(null);
 
-  console.log(diffArray);
-
   // Function to handle the click event on the "Diff" button
   const handleDiffButtonClick = (diffObj) => {
     // Setting the previous and next state based on the clicked diff
@@ -17,6 +15,19 @@ const ActionLog = () => {
 
     // set the selected div to be diff Obj
     setSelectedDiv(diffObj);
+  };
+
+  const renderTimeCheck = (diffObj) => {
+    if (diffObj.actionCompleteTime >= 750) {
+      return 'bg-red-600';
+    } else if (
+      diffObj.actionCompleteTime < 750 &&
+      diffObj.actionCompleteTime > 300
+    ) {
+      return 'bg-yellow-600';
+    } else {
+      return 'bg-green-600';
+    }
   };
 
   // Rendering the component structure
@@ -46,10 +57,13 @@ const ActionLog = () => {
                 // Applying dynamic styling based on the selected diff
                 className={
                   selectedDiv === diffObj
-                    ? 'flex flex-row justify-between w-96 text-center p-2 bg-blue rounded-md m-3'
-                    : 'flex flex-row justify-between w-96 text-center p-2 bg-lt-grey rounded-md m-3 '
+                    ? 'flex flex-row items-center justify-between w-96 text-center p-2 bg-blue rounded-md m-3'
+                    : 'flex flex-row items-center justify-between w-96 text-center p-2 bg-lt-grey rounded-md m-3 '
                 }
               >
+                <div
+                  className={`rounded-full w-4 h-4 ${renderTimeCheck(diffObj)}`}
+                ></div>
                 <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
                   {diffObj.action}
                 </p>
