@@ -52,65 +52,69 @@ const ActionLog = () => {
         </span>
       </label>
       {/* Action Log Section */}
-      <div
-        className='action-log border-b-2 border-lt-grey border-none m-3'
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '650px',
-        }}
-      >
-        <h1 className='text-center text-xl font-bold text-white m-2'>
-          Action Log
-        </h1>
-        <div className='flex flex-col h-fit' style={{ overflowY: 'auto' }}>
-          <div
-            className='flex flex-col items-center w-full justify-center'
-            style={{ overflowY: 'auto' }}
-          >
-            {/* Mapping over diffArray to display each diff */}
-            {diffArray.map((diffObj) => (
-              <div
-                key={uuid()}
-                // Applying dynamic styling based on the selected diff
-                className={
-                  selectedDiv === diffObj
-                    ? 'flex flex-row items-center justify-between w-96 text-center p-2 bg-blue rounded-md m-3'
-                    : 'flex flex-row items-center justify-between w-96 text-center p-2 bg-lt-grey rounded-md m-3 '
-                }
-              >
-                {/* Metrics status circle */}
+      <div className='flex flex-row justify-between'>
+        <div
+          className='action-log border-b-2 border-lt-grey border-none m-3'
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '650px',
+          }}
+        >
+          <h1 className='text-center text-xl font-bold text-white m-2'>
+            Action Log
+          </h1>
+          <div className='flex flex-col h-fit' style={{ overflow: 'auto' }}>
+            <div
+              className='flex flex-col items-center w-full justify-center'
+              style={{ overflowY: 'auto' }}
+            >
+              {/* Mapping over diffArray to display each diff */}
+              {diffArray.map((diffObj) => (
                 <div
-                  className={`rounded-full w-4 h-4 ${renderTimeCheck(diffObj)}`}
-                ></div>
-                <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
-                  {diffObj.action}
-                </p>
-                {/* Showing render times if toggle switched */}
-                {showRenderTimes && (
-                  <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
-                    {diffObj.actionCompleteTime < 1
-                      ? `< 1 ms`
-                      : `${diffObj.actionCompleteTime} ms`}
-                  </p>
-                )}
-                <button
-                  className='flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
-                  // Click event handler to update the previous and next state
-                  onClick={() => {
-                    handleDiffButtonClick(diffObj);
-                  }}
+                  key={uuid()}
+                  // Applying dynamic styling based on the selected diff
+                  className={
+                    selectedDiv === diffObj
+                      ? 'flex flex-row items-left justify-between w-80 text-center p-2 bg-blue rounded-md m-3'
+                      : 'flex flex-row items-left justify-between w-80 text-center p-2 bg-lt-grey rounded-md m-3 '
+                  }
                 >
-                  Diff
-                </button>
-              </div>
-            ))}
+                  {/* Metrics status circle */}
+                  <div
+                    className={`rounded-full w-4 h-4 ${renderTimeCheck(
+                      diffObj
+                    )}`}
+                  ></div>
+                  <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
+                    {diffObj.action}
+                  </p>
+                  {/* Showing render times if toggle switched */}
+                  {showRenderTimes && (
+                    <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
+                      {diffObj.actionCompleteTime < 1
+                        ? `< 1 ms`
+                        : `${diffObj.actionCompleteTime} ms`}
+                    </p>
+                  )}
+                  <button
+                    className='flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+                    // Click event handler to update the previous and next state
+                    onClick={() => {
+                      handleDiffButtonClick(diffObj);
+                    }}
+                  >
+                    Diff
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      {/* Rendering the Diff component */}
-      <div className='mb-0'>
-        <Diff />
+        {/* Rendering the Diff component */}
+        <div className='mb-0'>
+          <Diff />
+        </div>
       </div>
     </div>
   );

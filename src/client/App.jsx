@@ -12,7 +12,7 @@ import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { addStateSnapshot, addActionSnapshot, addDiffSnapshot } = useStore();
+  const { addStateSnapshot, addDiffSnapshot } = useStore();
 
   let connected = false;
   let port;

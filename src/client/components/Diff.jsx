@@ -20,7 +20,7 @@ const Diff = () => {
   };
 
   return (
-    <div className='flex flex-row justify-center items-center'>
+    <div className='flex flex-col justify-center items-center'>
       <div className='flex grow flex-col self-center border-2 border-lt-grey overflow-auto h-full p-4'>
         <h2 className='text-left text-xl text-white font-bold overflow-auto m-1'>
           State Before Action:
