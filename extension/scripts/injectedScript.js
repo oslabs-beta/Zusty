@@ -51,6 +51,50 @@ function findReactComponents(element) {
   return components;
 }
 
+function findReactComponents(element) {
+  const components = [];
+
+  function findComponentNames(fiberNode) {
+    const isNamedComponent =
+      fiberNode &&
+      fiberNode.elementType &&
+      (fiberNode.elementType.name || fiberNode.elementType.displayName);
+
+    const isFunctionComponent =
+      fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
+
+    if (isNamedComponent) {
+      // Use the display name or name, whichever is available
+      const name =
+        fiberNode.elementType.displayName || fiberNode.elementType.name;
+      components.push(name);
+    } else if (isFunctionComponent) {
+      const name = fiberNode.type.displayName || fiberNode.type.name;
+      components.push(name);
+    }
+
+    if (fiberNode.child) {
+      let childFiber = fiberNode.child;
+      while (childFiber) {
+        findComponentNames(childFiber);
+        childFiber = childFiber.sibling;
+      }
+    }
+  }
+
+  // Find the internal React fiber node
+  const key = Object.keys(element).find((key) =>
+    key.startsWith('__reactFiber$')
+  );
+  const rootFiber = element[key];
+
+  if (rootFiber) {
+    findComponentNames(rootFiber);
+  }
+
+  return components;
+}
+
 const rootElement = document.getElementById('root');
 const reactComponents = findReactComponents(rootElement);
 console.log('ropt', rootElement);

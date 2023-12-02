@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactJson from '@microlink/react-json-view';
 import useStore from '../store/store';
 
 const Diff = () => {
@@ -9,11 +10,19 @@ const Diff = () => {
   const renderObjectProperties = (obj) => {
     // Mapping over entries (key-value pairs) of the object
     if (obj && typeof obj === 'object') {
-      return Object.entries(obj).map(([key, value]) => (
-        <li className="text-white text-sm text-left m-2" key={key}>
-          <strong className="text-white">{key}:</strong> {JSON.stringify(value)}
-        </li>
-      ));
+      return (
+        <ReactJson
+          src={obj}
+          theme="hopscotch"
+          displayDataTypes={false}
+          enableClipboard={false}
+        />
+      );
+      // return Object.entries(obj).map(([key, value]) => (
+      //   <li className="text-gray text-sm text-left m-2" key={key}>
+      //     <strong className="text-white">{key}:</strong> {JSON.stringify(value)}
+      //   </li>
+      // ));
     }
   };
 
