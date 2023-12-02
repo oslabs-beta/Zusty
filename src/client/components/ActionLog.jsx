@@ -5,20 +5,21 @@ import Diff from './Diff';
 
 const ActionLog = () => {
   const { diffArray, setPrevState, setNextState } = useStore();
+  // selectedDiv for dyamically highlighting elements when diff button is clicked
   const [selectedDiv, setSelectedDiv] = useState(null);
+  // showRenderTimes for toggle to show or hide metrics
   const [showRenderTimes, setShowRenderTimes] = useState(false);
 
   const handleToggleChange = () => {
     setShowRenderTimes((prev) => !prev);
   };
 
-  // Function to handle the click event on the "Diff" button
   const handleDiffButtonClick = (diffObj) => {
-    // Setting the previous and next state based on the clicked diff
+    // Setting the previous and next state based on the component where diff is clicked
     setPrevState(diffObj.prevState);
     setNextState(diffObj.nextState);
 
-    // set the selected div to be diff Obj
+    // set the selected div to be diff Obj for dynamic highlighting
     setSelectedDiv(diffObj);
   };
 
@@ -35,9 +36,9 @@ const ActionLog = () => {
     }
   };
 
-  // Rendering the component structure
   return (
     <div>
+      {/* Toggle Switch */}
       <label className='relative inline-flex items-center mb-5 cursor-pointer'>
         <input
           type='checkbox'
@@ -50,6 +51,7 @@ const ActionLog = () => {
           Show Render Times
         </span>
       </label>
+      {/* Action Log Section */}
       <div
         className='action-log border-b-2 border-lt-grey border-none m-3'
         style={{
@@ -62,7 +64,6 @@ const ActionLog = () => {
           Action Log
         </h1>
         <div className='flex flex-col h-fit' style={{ overflowY: 'auto' }}>
-          {/* Diff Logs Column */}
           <div
             className='flex flex-col items-center w-full justify-center'
             style={{ overflowY: 'auto' }}
@@ -78,12 +79,14 @@ const ActionLog = () => {
                     : 'flex flex-row items-center justify-between w-96 text-center p-2 bg-lt-grey rounded-md m-3 '
                 }
               >
+                {/* Metrics status circle */}
                 <div
                   className={`rounded-full w-4 h-4 ${renderTimeCheck(diffObj)}`}
                 ></div>
                 <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
                   {diffObj.action}
                 </p>
+                {/* Showing render times if toggle switched */}
                 {showRenderTimes && (
                   <p className='flex items-center justify-self-center pr-5 font-bold text-dk-navy'>
                     {diffObj.actionCompleteTime < 1
@@ -91,8 +94,6 @@ const ActionLog = () => {
                       : `${diffObj.actionCompleteTime} ms`}
                   </p>
                 )}
-
-                {/* Button to trigger the "Diff" action */}
                 <button
                   className='flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
                   // Click event handler to update the previous and next state

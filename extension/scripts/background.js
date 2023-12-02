@@ -16,9 +16,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.body === 'actionAndStateSnapshot' && backgroundPort) {
     backgroundPort.postMessage({
-      // body will be actionLog
       body: request.body,
-      // this will be the action
       action: request.action,
       actionCompleteTime: request.actionCompleteTime,
       prevState: request.prevState,

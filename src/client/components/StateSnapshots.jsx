@@ -4,7 +4,6 @@ import useStore from '../store/store';
 import uuid from 'react-uuid';
 
 const StateSnapshots = () => {
-  // Bring in stateSnapshotArray from Zustand store
   const { stateSnapshotArray } = useStore();
 
   // To handle toggling to JSON format display
@@ -19,6 +18,7 @@ const StateSnapshots = () => {
       className='flex flex-col border-t-2 border-lt-grey w-full m-auto'
       style={{ height: '93vh', overflow: 'auto' }}
     >
+      {/* Toggle Switch */}
       <label className='relative inline-flex items-center mb-5 cursor-pointer'>
         <input
           type='checkbox'
@@ -31,10 +31,11 @@ const StateSnapshots = () => {
           Show As List
         </span>
       </label>
-
+      {/* State Snapshot Section */}
       <h1 className='text-center text-xl font-bold text-white my-5'>
         State Snapshots
       </h1>
+      {/* Map through snapshots to display in either JSON format or list view depending on toggle switch */}
       <div className='flex flex-col justify-center items-center gap-1.5'>
         {stateSnapshotArray.map((el) => (
           <div

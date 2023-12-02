@@ -28,11 +28,6 @@ const App = () => {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
         if (message.body === 'actionAndStateSnapshot') {
-          console.log(message);
-          // Might not be using this:
-          const actionSnapshot = message.action;
-          addActionSnapshot(actionSnapshot);
-
           const timestamp = new Date().toLocaleString();
           let currentStateSnapshot = JSON.parse(message.nextState);
           const currentStateWithTimestamp = {
@@ -63,7 +58,6 @@ const App = () => {
 
   const listener = () => {
     if (!connected) {
-      console.log('connecting to port');
       port = chrome.runtime.connect();
       connected = true;
     }
