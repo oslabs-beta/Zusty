@@ -24,7 +24,7 @@
   stroke: white;
 }
 #treeWrapper text {
-  fill: white; /* Change 'green' to your desired color */
+  fill: white;
 }
 .node__branch > circle {
   fill: palevioletred;

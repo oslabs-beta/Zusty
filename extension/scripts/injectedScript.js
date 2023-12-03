@@ -1,56 +1,6 @@
 // grab the users application store
 const store = window.store;
 
-console.log('injected script loaded');
-
-function findReactComponents(element) {
-  const components = [];
-
-  function findComponentNames(fiberNode) {
-    // Check if the node is a React component and has a name, excluding 'div' and 'h1'
-    const isComponent =
-      fiberNode &&
-      fiberNode.elementType &&
-      fiberNode.elementType.name &&
-      fiberNode.elementType.name !== 'div' &&
-      fiberNode.elementType.name !== 'h1';
-    const isNotHtmlElement =
-      fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
-
-    if (isComponent || isNotHtmlElement) {
-      // Only push component names that are not 'div' or 'h1'
-      const name = fiberNode.elementType.name || fiberNode.type.name;
-      components.push(name);
-    }
-
-    if (
-      fiberNode &&
-      fiberNode.stateNode &&
-      fiberNode.stateNode.nodeType === 1
-    ) {
-      let childFiber = fiberNode.child;
-      while (childFiber) {
-        findComponentNames(childFiber);
-        childFiber = childFiber.sibling;
-      }
-    }
-  }
-
-  Array.from(element.children).forEach((child) => {
-    // Find the internal React fiber node
-    const key = Object.keys(child).find((key) =>
-      key.startsWith('__reactFiber$')
-    );
-    const fiberNode = child[key];
-
-    if (fiberNode) {
-      findComponentNames(fiberNode);
-    }
-  });
-
-  return components;
-}
-
 function findReactComponents(element) {
   const components = [];
 
@@ -59,7 +9,7 @@ function findReactComponents(element) {
       fiberNode &&
       fiberNode.elementType &&
       (fiberNode.elementType.name || fiberNode.elementType.displayName);
-
+    console.log('fibers', fiberNode, fiberNode.element);
     const isFunctionComponent =
       fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
 
@@ -97,7 +47,7 @@ function findReactComponents(element) {
 
 const rootElement = document.getElementById('root');
 const reactComponents = findReactComponents(rootElement);
-console.log('ropt', rootElement);
+console.log('root', rootElement);
 console.log('reactcomp', reactComponents);
 
 function hierarchyConv(state, maxDepth = 10) {

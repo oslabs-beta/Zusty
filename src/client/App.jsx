@@ -12,7 +12,7 @@ import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { addStateSnapshot, addActionSnapshot, addDiffSnapshot } = useStore();
+  const { addStateSnapshot, addDiffSnapshot } = useStore();
 
   let connected = false;
   let port;
@@ -28,10 +28,6 @@ const App = () => {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
         if (message.body === 'actionAndStateSnapshot') {
-          console.log(message);
-          const actionSnapshot = message.action;
-          addActionSnapshot(actionSnapshot);
-
           const timestamp = new Date().toLocaleString();
           let currentStateSnapshot = JSON.parse(message.nextState);
           const currentStateWithTimestamp = {
@@ -44,6 +40,7 @@ const App = () => {
           let nextState = JSON.parse(message.nextState);
           const currentDiffWithTimestamp = {
             action: message.action,
+            actionCompleteTime: message.actionCompleteTime,
             prevState,
             nextState,
           };
@@ -61,7 +58,6 @@ const App = () => {
 
   const listener = () => {
     if (!connected) {
-      console.log('connecting to port');
       port = chrome.runtime.connect();
       connected = true;
     }
