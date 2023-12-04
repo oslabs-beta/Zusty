@@ -3,15 +3,17 @@ import ReactJson from '@microlink/react-json-view';
 import useStore from '../store/store';
 
 const Diff = () => {
+  // Destructuring prevState and nextState from the state returned by useStore
   const { prevState, nextState } = useStore();
 
+  // Function to render key-value pairs of an object as list items
   const renderObjectProperties = (obj) => {
     // Mapping over entries (key-value pairs) of the object
     if (obj && typeof obj === 'object') {
       return (
         <ReactJson
           src={obj}
-          theme='hopscotch'
+          theme="hopscotch"
           displayDataTypes={false}
           enableClipboard={false}
         />
@@ -19,19 +21,31 @@ const Diff = () => {
     }
   };
 
+  // Rendering the component structure
+  const containerStyle = {
+    height: 'calc(47vh - 3rem)', // Half of the viewport height minus some spacing.
+    overflow: 'auto', // Will add scrollbars when content overflows.
+  };
+
   return (
-    <div className='flex flex-col justify-center items-center'>
-      <div className='flex grow flex-col self-center border-2 border-lt-grey overflow-auto h-full p-4'>
-        <h2 className='text-left text-xl text-white font-bold overflow-auto m-1'>
-          State Before Action:
-        </h2>
-        <ul>{renderObjectProperties(prevState)}</ul>
+    <div className="w-full h-10/12">
+      <h2 className="text-center text-xl text-white font-bold mb-2">
+        State Before Action
+      </h2>
+      <div
+        className="border-2 border-lt-grey p-4 mb-4 rounded-md bg-code-bg"
+        style={containerStyle}
+      >
+        {renderObjectProperties(prevState)}
       </div>
-      <div className='flex grow flex-col self-center border-2 border-lt-grey overflow-auto h-full p-4'>
-        <h2 className='text-left text-xl text-white font-bold overflow-auto m-1'>
-          State After Action:
-        </h2>
-        <ul>{renderObjectProperties(nextState)}</ul>
+      <h2 className="text-center text-xl text-white font-bold mb-2">
+        State After Action:
+      </h2>
+      <div
+        className="border-2 border-lt-grey p-4 rounded-md bg-code-bg"
+        style={containerStyle}
+      >
+        {renderObjectProperties(nextState)}
       </div>
     </div>
   );

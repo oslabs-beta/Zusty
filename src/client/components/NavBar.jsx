@@ -7,9 +7,9 @@ import ActionLogBtn from './ActionLogBtn';
 
 const Navigation = () => {
   return (
-    <div className="flex flex-shrink justify-between my-2">
+    <div className="flex items-center justify-around my-2">
       <ActionLogBtn />
-      <TimeTravelBtn />
+      {/* <TimeTravelBtn /> */}
       <TreeBtn />
       <StoreBtn />
     </div>
