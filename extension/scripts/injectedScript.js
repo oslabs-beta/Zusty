@@ -5,25 +5,26 @@ function findReactComponents(element) {
   const components = [];
 
   function findComponentNames(fiberNode) {
-    const isNamedComponent =
-      fiberNode &&
-      fiberNode.elementType &&
-      (fiberNode.elementType.name || fiberNode.elementType.displayName);
-    console.log('fibers', fiberNode, fiberNode.element);
-    const isFunctionComponent =
+    // Check if the node is a React component and has a name, excluding 'div' and 'h1'
+    const isComponent =
+      fiberNode && fiberNode.elementType && fiberNode.elementType.name;
+    // &&
+    // fiberNode.elementType.name !== 'div' &&
+    // fiberNode.elementType.name !== 'h1';
+    const isNotHtmlElement =
       fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
 
-    if (isNamedComponent) {
-      // Use the display name or name, whichever is available
-      const name =
-        fiberNode.elementType.displayName || fiberNode.elementType.name;
-      components.push(name);
-    } else if (isFunctionComponent) {
-      const name = fiberNode.type.displayName || fiberNode.type.name;
+    if (isComponent || isNotHtmlElement) {
+      // Only push component names that are not 'div' or 'h1'
+      const name = fiberNode.elementType.name || fiberNode.type.name;
       components.push(name);
     }
 
-    if (fiberNode.child) {
+    if (
+      fiberNode &&
+      fiberNode.stateNode &&
+      fiberNode.stateNode.nodeType === 1
+    ) {
       let childFiber = fiberNode.child;
       while (childFiber) {
         findComponentNames(childFiber);
@@ -32,15 +33,18 @@ function findReactComponents(element) {
     }
   }
 
-  // Find the internal React fiber node
-  const key = Object.keys(element).find((key) =>
-    key.startsWith('__reactFiber$')
-  );
-  const rootFiber = element[key];
-
-  if (rootFiber) {
-    findComponentNames(rootFiber);
-  }
+  Array.from(element.children).forEach((child) => {
+    // Find the internal React fiber node
+    const key = Object.keys(child).find((key) =>
+      key.startsWith('__reactFiber$')
+    );
+    console.log('key', key);
+    const fiberNode = child[key];
+    console.log('fibernode', fiberNode);
+    if (fiberNode) {
+      findComponentNames(fiberNode);
+    }
+  });
 
   return components;
 }
