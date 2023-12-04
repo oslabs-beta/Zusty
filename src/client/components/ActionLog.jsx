@@ -39,7 +39,7 @@ const ActionLog = () => {
   return (
     <div>
       {/* Toggle Switch */}
-      <label className="relative inline-flex items-center mb-5 cursor-pointer">
+      <label className="mt-3 ml-2 relative inline-flex items-center mb-5 cursor-pointer">
         <input
           type="checkbox"
           value=""
@@ -52,21 +52,25 @@ const ActionLog = () => {
         </span>
       </label>
       {/* Action Log Section */}
-      <div className="flex flex-row justify-between">
+
+      <div className="flex flex-row justify-between bg-code-bg">
         <div
-          className="action-log border-b-2 border-lt-grey border-none m-3"
+          className="flex items-center action-log border-b-2 border-lt-grey border-none rounded-md"
           style={{
             display: 'flex',
             flexDirection: 'column',
-            height: '650px',
+            height: '91vh',
+            overflowY: 'auto',
           }}
         >
-          <h1 className="text-center text-xl font-bold text-white m-2">
+          <h1 className="text-center text-xl font-bold text-white m-2 w-72 mb-0 mt-0">
             Action Log
           </h1>
+
           <div className="flex flex-col h-fit" style={{ overflow: 'auto' }}>
             <div
-              className="flex flex-col items-center w-full justify-center"
+              className="flex flex-col items-center w-full justify-center
+              "
               style={{ overflowY: 'auto' }}
             >
               {/* Mapping over diffArray to display each diff */}
@@ -76,17 +80,17 @@ const ActionLog = () => {
                   // Applying dynamic styling based on the selected diff
                   className={
                     selectedDiv === diffObj
-                      ? 'flex flex-row items-left justify-between w-80 text-center p-2 bg-blue rounded-md m-3'
-                      : 'flex flex-row items-left justify-between w-80 text-center p-2 bg-lt-grey rounded-md m-3 '
+                      ? 'flex flex-row items-center justify-between w-72 min-w-max text-center p-2 bg-code-o rounded-md m-2'
+                      : 'flex flex-row items-center justify-between w-72 min-w-max text-center p-2 bg-light-codebg rounded-md m-2 '
                   }
                 >
                   {/* Metrics status circle */}
                   <div
-                    className={`rounded-full w-4 h-4 ${renderTimeCheck(
+                    className={`rounded-full w-2 h-2 ${renderTimeCheck(
                       diffObj
                     )}`}
                   ></div>
-                  <p className="flex items-center justify-self-center pr-5 font-bold text-dk-navy">
+                  <p className="flex items-center justify-self-center pr-5 font-bold text-white">
                     {diffObj.action}
                   </p>
                   {/* Showing render times if toggle switched */}
@@ -94,11 +98,11 @@ const ActionLog = () => {
                     <p className="flex items-center justify-self-center pr-5 font-bold text-dk-navy">
                       {diffObj.actionCompleteTime < 1
                         ? `< 1 ms`
-                        : `${diffObj.actionCompleteTime} ms`}
+                        : `${diffObj.actionCompleteTime.toFixed(2)} ms`}
                     </p>
                   )}
                   <button
-                    className="flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                    className="flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-code-o rounded"
                     // Click event handler to update the previous and next state
                     onClick={() => {
                       handleDiffButtonClick(diffObj);
@@ -112,7 +116,7 @@ const ActionLog = () => {
           </div>
         </div>
         {/* Rendering the Diff component */}
-        <div className="mb-0">
+        <div className=" w-7/12">
           <Diff />
         </div>
       </div>

@@ -41,15 +41,15 @@
 
 ::-webkit-scrollbar {
   width: 10px;
-  background-color: #0f172a;
+  background-color: #332930;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #0f172a;
+  background-color: #332930;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #94a3b8;
-  border-radius: 5px;
-  border: 2px solid #0f172a;
+  background-color: #5b5459;
+  border-radius: 3px;
+  border: 2px solid #332930;
 }

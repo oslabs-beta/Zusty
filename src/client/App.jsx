@@ -77,12 +77,12 @@ const App = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="w-1/3 bg-dk-navy border-r-2 border-lt-grey">
+      <div className="w-1/3 bg-code-bg border-r-2 border-lt-grey">
         <Navigation />
         <StateSnapshots />
       </div>
       {/* <TreeRender /> */}
-      <div className="w-2/3 bg-dk-navy">
+      <div className="w-2/3 bg-code-bg">
         {activeTab === 'tree' && <ReactD3Tree data={d3data} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}

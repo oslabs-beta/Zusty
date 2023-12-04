@@ -8,7 +8,7 @@ const TreeBtn = () => {
     <div>
       <button
         onClick={() => setActiveTab('tree')}
-        className="flex-grow flex-shrink bg-lt-grey text-dk-navy hover:bg-white text-gray-800 font-semibold py-2 px-4 text-center border border-gray-400 rounded shadow transition duration-400"
+        className="flex flex-shrink bg-light-codebg text-white hover:bg-code-o text-gray-800 font-semibold py-2 px-4 text-center border border-light-codebg rounded shadow transition duration-400"
       >
         Tree
       </button>

@@ -18,30 +18,34 @@ const Diff = () => {
           enableClipboard={false}
         />
       );
-      // return Object.entries(obj).map(([key, value]) => (
-      //   <li className="text-gray text-sm text-left m-2" key={key}>
-      //     <strong className="text-white">{key}:</strong> {JSON.stringify(value)}
-      //   </li>
-      // ));
     }
   };
 
   // Rendering the component structure
+  const containerStyle = {
+    height: 'calc(47vh - 3rem)', // Half of the viewport height minus some spacing.
+    overflow: 'auto', // Will add scrollbars when content overflows.
+  };
+
   return (
-    <div className="flex flex-row justify-center items-center">
-      <div className="flex grow flex-col self-center border-2 border-lt-grey overflow-auto h-full p-4">
-        <h2 className="text-left text-xl text-white font-bold overflow-auto m-1">
-          State Before Action:
-        </h2>
-        {/* Rendering a list of key-value pairs for parsedPrevState */}
-        <ul>{renderObjectProperties(prevState)}</ul>
+    <div className="w-full h-10/12">
+      <h2 className="text-center text-xl text-white font-bold mb-2">
+        State Before Action
+      </h2>
+      <div
+        className="border-2 border-lt-grey p-4 mb-4 rounded-md bg-code-bg"
+        style={containerStyle}
+      >
+        {renderObjectProperties(prevState)}
       </div>
-      <div className="flex grow flex-col self-center border-2 border-lt-grey overflow-auto h-full p-4">
-        <h2 className="text-left text-xl text-white font-bold overflow-auto m-1">
-          State After Action:
-        </h2>
-        {/* Rendering a list of key-value pairs for parsedNextState */}
-        <ul>{renderObjectProperties(nextState)}</ul>
+      <h2 className="text-center text-xl text-white font-bold mb-2">
+        State After Action:
+      </h2>
+      <div
+        className="border-2 border-lt-grey p-4 rounded-md bg-code-bg"
+        style={containerStyle}
+      >
+        {renderObjectProperties(nextState)}
       </div>
     </div>
   );

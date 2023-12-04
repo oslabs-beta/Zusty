@@ -50,50 +50,6 @@ const reactComponents = findReactComponents(rootElement);
 console.log('root', rootElement);
 console.log('reactcomp', reactComponents);
 
-function hierarchyConv(state, maxDepth = 10) {
-  const rootNode = {
-    name: 'state',
-    children: [],
-  };
-
-  const visited = new Set();
-
-  function addNodeToTree(key, value, parent, depth) {
-    if (depth > maxDepth) {
-      parent.children.push({ name: '[Max Depth Exceeded]' });
-      return;
-    }
-
-    if (visited.has(value)) {
-      parent.children.push({ name: '[Circular]' });
-      return;
-    }
-
-    if (typeof value === 'object' && value !== null) {
-      visited.add(value);
-
-      const newNode = { name: key, children: [] };
-      Object.entries(value).forEach(([subKey, subValue]) => {
-        addNodeToTree(subKey, subValue, newNode, depth + 1);
-      });
-
-      if (newNode.children.length === 0) {
-        delete newNode.children;
-      } else {
-        parent.children.push(newNode);
-      }
-    } else {
-      // When the value is not an object, use it as the name of the node.
-      parent.children.push({ name: String(value) });
-    }
-  }
-
-  Object.entries(state).forEach(([key, value]) => {
-    addNodeToTree(key, value, rootNode, 0);
-  });
-
-  return rootNode;
-}
 const d3hierarchy = hierarchyConv(rootElement);
 const d3hierarchy2 = hierarchyConv(reactComponents);
 
