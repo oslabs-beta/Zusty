@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useStore from '../store/store';
 import uuid from 'react-uuid';
 
 const Store = () => {
+  const { store } = useStore();
+
   return (
     <div>
-      <p>This will show the store</p>
+      {Object.keys(store).map((key) => (
+        <p key={uuid()}>{`${key} : ${store[key]}`}</p>
+      ))}
     </div>
   );
 };
