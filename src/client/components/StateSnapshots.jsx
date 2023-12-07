@@ -56,6 +56,8 @@ const StateSnapshots = () => {
                   theme="hopscotch"
                   displayDataTypes={false}
                   enableClipboard={false}
+                  quotesOnKeys={false}
+                  style={{ fontSize: '12px' }}
                 />
               ) : (
                 Object.keys(el.stateSnapshot).map((key) => (

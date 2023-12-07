@@ -16,6 +16,8 @@ const Diff = () => {
           theme="hopscotch"
           displayDataTypes={false}
           enableClipboard={false}
+          quotesOnKeys={false}
+          style={{ fontSize: '12px' }}
         />
       );
     }

@@ -6,7 +6,8 @@ const useStore = create((set) => ({
   stateSnapshotArray: [],
   actionSnapshotArray: [],
   diffArray: [],
-  activeTab: 'tree',
+  activeTab: 'actionLog',
+  store: {},
   setActiveTab: (activeTab) => set({ activeTab }),
   addStateSnapshot: (snapshot) =>
     set((state) => ({
@@ -22,6 +23,7 @@ const useStore = create((set) => ({
     })),
   setPrevState: (pState) => set({ prevState: pState }),
   setNextState: (nState) => set({ nextState: nState }),
+  setStore: (inputStore) => set({ store: inputStore }),
 
   d3data: null,
   setD3data: (data) => set({ d3data: data }),

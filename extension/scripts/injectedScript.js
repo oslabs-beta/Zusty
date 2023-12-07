@@ -7,10 +7,11 @@ function findReactComponents(element) {
   function findComponentNames(fiberNode) {
     // Check if the node is a React component and has a name, excluding 'div' and 'h1'
     const isComponent =
-      fiberNode && fiberNode.elementType && fiberNode.elementType.name;
-    // &&
-    // fiberNode.elementType.name !== 'div' &&
-    // fiberNode.elementType.name !== 'h1';
+      fiberNode &&
+      fiberNode.elementType &&
+      fiberNode.elementType.name &&
+      fiberNode.elementType.name == 'div' &&
+      fiberNode.elementType.name == 'h1';
     const isNotHtmlElement =
       fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
 

@@ -12,7 +12,7 @@ import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 const App = () => {
   const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { addStateSnapshot, addDiffSnapshot } = useStore();
+  const { addStateSnapshot, addDiffSnapshot, setStore } = useStore();
 
   let connected = false;
   let port;
@@ -28,6 +28,9 @@ const App = () => {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
         if (message.body === 'actionAndStateSnapshot') {
+          const store = JSON.parse(message.store);
+          setStore(store);
+
           const timestamp = new Date().toLocaleString();
           let currentStateSnapshot = JSON.parse(message.nextState);
           const currentStateWithTimestamp = {
@@ -75,13 +78,13 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/3 bg-code-bg border-r-2 border-lt-grey">
+    <div className='flex h-screen'>
+      <div className='w-1/3 bg-code-bg border-r-2 border-lt-grey'>
         <Navigation />
         <StateSnapshots />
       </div>
       {/* <TreeRender /> */}
-      <div className="w-2/3 bg-code-bg">
+      <div className='w-2/3 bg-code-bg'>
         {activeTab === 'tree' && <ReactD3Tree data={d3data} />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
