@@ -6,7 +6,7 @@ const useStore = create((set) => ({
   stateSnapshotArray: [],
   actionSnapshotArray: [],
   diffArray: [],
-  activeTab: 'tree',
+  activeTab: 'actionLog',
   store: {},
   setActiveTab: (activeTab) => set({ activeTab }),
   addStateSnapshot: (snapshot) =>
