@@ -15,7 +15,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 //listens for messages from injected script and then sends messages to app.jsx
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.body === 'actionAndStateSnapshot' && backgroundPort) {
-    console.log('store:', chrome);
     backgroundPort.postMessage({
       body: request.body,
       action: request.action,

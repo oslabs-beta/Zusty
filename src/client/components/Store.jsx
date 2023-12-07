@@ -1,15 +1,18 @@
 import React from 'react';
 import useStore from '../store/store';
-import uuid from 'react-uuid';
+import ReactJson from '@microlink/react-json-view';
 
 const Store = () => {
   const { store } = useStore();
 
   return (
     <div>
-      {Object.keys(store).map((key) => (
-        <p key={uuid()}>{`${key} : ${store[key]}`}</p>
-      ))}
+      <ReactJson
+        src={store}
+        theme='hopscotch'
+        displayDataTypes={false}
+        enableClipboard={false}
+      />
     </div>
   );
 };
