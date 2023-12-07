@@ -37,9 +37,10 @@ You are now ready to use our tool!
 
 ## Features
 
-Upon opening Zusty you will see the component tree showing components using state, as well as state snapshots. Our state snapshot section features a toggle which allows users to switch between a JSON view and a list view depending on what is most convenient. The JSON view allows for easy visualization for nested objects, as well as the ability to collapse items to focus on what is being affected. A timestamp has been added to each snapshot so users can understand when each state change is occurring for debugging:
+Upon opening Zusty you will see the action log, as well as state snapshots. Our state snapshot section features a toggle which allows users to switch between a JSON view and a list view depending on what is most convenient. The JSON view allows for easy visualization for nested objects, as well as the ability to collapse items to focus on what is being affected. A timestamp has been added to each snapshot so users can understand when each state change is occurring for debugging:
 
-Add gif here
+![StateSnapshot](https://github.com/oslabs-beta/Zusty/assets/44410674/80ba2453-6f92-4ba4-b6d2-4b24d0134973)
+
 
 To visualize the action log, time travel, and metrics select the action log button.
 
