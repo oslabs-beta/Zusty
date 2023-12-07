@@ -21,6 +21,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       actionCompleteTime: request.actionCompleteTime,
       prevState: request.prevState,
       nextState: request.nextState,
+      store: request.store,
     });
   }
 });
