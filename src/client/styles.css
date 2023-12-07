@@ -15,7 +15,7 @@
 }
 
 .node__root > circle {
-  fill: paleturquoise;
+  fill: #fcc48d;
   stroke: none;
   r: 15;
 }
@@ -31,7 +31,7 @@
 }
 
 .node__leaf > circle {
-  fill: paleturquoise;
+  fill: #fd8b18;
   stroke: none;
   r: 15;
 }

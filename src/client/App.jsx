@@ -66,9 +66,8 @@ const App = () => {
     }
     if (connected) {
       port.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('d3data', message);
         let data = JSON.parse(message.data);
-        console.log('d3', data);
+
         useStore.getState().setD3data(data);
       });
     }
