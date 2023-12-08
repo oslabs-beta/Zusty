@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import uuid from 'react-uuid';
 import useStore from './store/store';
 import Navigation from './components/NavBar';
 import ActionLog from './components/ActionLog';
-
 import StateSnapshots from './components/StateSnapshots';
 import Store from './components/Store';
 import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 
 const App = () => {
-  // const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
   const { addStateSnapshot, addDiffSnapshot, setStore, setD3data, d3data } =
     useStore();
@@ -27,7 +24,6 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
-        console.log(message.body);
         if (message.body === 'actionAndStateSnapshot') {
           const store = JSON.parse(message.store);
           setStore(store);
@@ -54,7 +50,7 @@ const App = () => {
 
         if (message.body === 'treeComponents') {
           let data = JSON.parse(message.data);
-          useStore.getState().setD3data(data);
+          setD3data(data);
         }
       });
     }

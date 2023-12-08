@@ -1,6 +1,6 @@
 # Zusty
 
-Zusty is a Zustand Dev Tool designed to facilitate the debugging of state management in your applications. It provides state snapshots, action logs, render time metrics, and a component tree showing which components are using state. With this infomration at hand debugging your Zustand code is easy!
+Zusty is a Zustand Dev Tool designed to facilitate the debugging of state management in your applications. It provides state snapshots, action logs, render time metrics, and a component tree showing which components are using state. With this information at hand debugging your Zustand code is easy!
 
 ## Installation
 
@@ -39,28 +39,29 @@ You are now ready to use our tool!
 
 Upon opening Zusty you will see the action log, as well as state snapshots. Our state snapshot section features a toggle which allows users to switch between a JSON view and a list view depending on what is most convenient. The JSON view allows for easy visualization for nested objects, as well as the ability to collapse items to focus on what is being affected. A timestamp has been added to each snapshot so users can understand when each state change is occurring for debugging:
 
-![StateSnapshot](https://github.com/oslabs-beta/Zusty/assets/44410674/80ba2453-6f92-4ba4-b6d2-4b24d0134973)
+![StateSnapShot](https://github.com/oslabs-beta/Zusty/assets/44410674/dd19234b-04a0-4788-b58f-1a37401d8ef8)
 
 
 A tree button is available, displaying all the components in the user's application in a convenient tree-like view, enabling a comprehensive overview of the application's state management structure and facilitating efficient debugging and identification of data flow patterns:
 
-![Tree](https://github.com/oslabs-beta/Zusty/assets/44410674/e75f5e08-7b50-416e-8c08-8761469f40c2)
+![Tree](https://github.com/oslabs-beta/Zusty/assets/44410674/2ee22878-ec2e-4be0-b510-62f72b62a2be)
+
 
 To visualize the action log, time travel, and metrics select the action log button.
 
 Here you can see each action that is changing state, the state before and after that action was completed, and the render time to update state after this action. Zusty adds dynamic highlighting to make it clear which action is being inspected when viewing previous and current state:
 
-![ActionLogTimeTravel](https://github.com/oslabs-beta/Zusty/assets/44410674/23e200aa-0550-4976-ae3a-1b574c3c6f12)
+![ActionLogTimeTravel](https://github.com/oslabs-beta/Zusty/assets/44410674/5e0f767d-df34-4d28-bf84-e4e04117f3c8)
 
 
 On each action we display either a green, yellow, or red dot indicating the performance of rendering times. We have a toggle option which users can select to see the exact render time to understand which actions are leading to issues if any:
 
-![ActionLogMetrics](https://github.com/oslabs-beta/Zusty/assets/44410674/4a533aa5-8827-4fd7-8a81-8d52f8db734b)
+![ActionLogMetrics](https://github.com/oslabs-beta/Zusty/assets/44410674/ff2d36b5-7947-4c71-85b5-2252f0f00516)
 
 
 There is also a store button that allows the user to conveniently see thier zustand store directly in the dev tool, as to see how these actions are actually affecting the state:
 
-![Store](https://github.com/oslabs-beta/Zusty/assets/44410674/b2c3b3dc-e375-4775-83b2-98c0b89c898d)
+![Store](https://github.com/oslabs-beta/Zusty/assets/44410674/17fc81c9-ee4f-440b-b5dd-c4f816e82568)
 
 
 ## Contributing

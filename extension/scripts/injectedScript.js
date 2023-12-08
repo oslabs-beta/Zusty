@@ -32,7 +32,6 @@ function findReactComponents(element) {
       key.startsWith('__reactFiber$')
     );
     const fiberNode = child[key];
-
     if (fiberNode) {
       findComponentNames(fiberNode);
     }
@@ -81,12 +80,14 @@ function hierarchyConv(state) {
 // const d3hierarchy = hierarchyConv(rootElement);
 const d3hierarchy2 = hierarchyConv(reactComponents);
 
-window.postMessage({
-  type: 'REACT_COMPONENTS',
-  data: JSON.stringify(d3hierarchy2),
-});
-
-// window.postMessage({
-//   type: 'ROOT_DIV',
-//   data: JSON.stringify(d3hierarchy),
-// });
+// Send the components data to the content script
+setInterval(() => {
+  window.postMessage({
+    type: 'REACT_COMPONENTS',
+    data: JSON.stringify(d3hierarchy2),
+  });
+  window.postMessage({
+    type: 'ROOT_DIV',
+    data: JSON.stringify(d3hierarchy),
+  });
+}, 1000);
