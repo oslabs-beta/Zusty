@@ -25,7 +25,7 @@ const useStore = create((set) => ({
   setNextState: (nState) => set({ nextState: nState }),
   setStore: (inputStore) => set({ store: inputStore }),
 
-  d3data: null,
+  d3data: {},
   setD3data: (data) => set({ d3data: data }),
 }));
 

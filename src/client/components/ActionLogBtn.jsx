@@ -10,7 +10,7 @@ const ActionLogBtn = () => {
     <div>
       <button
         onClick={() => setActiveTab('actionLog')}
-        className="flex flex-shrink bg-light-codebg text-white hover:bg-code-o text-gray-800 font-semibold py-2 px-4 border border-light-codebg rounded shadow"
+        className='flex flex-shrink bg-light-codebg text-white hover:bg-code-o text-gray-800 font-semibold py-2 px-4 border border-light-codebg rounded shadow'
       >
         Action Log
       </button>

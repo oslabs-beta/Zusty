@@ -4,15 +4,16 @@ import useStore from './store/store';
 import D3Tree from './components/D3Tree';
 import Navigation from './components/NavBar';
 import ActionLog from './components/ActionLog';
-import TimeTravel from './components/TimeTravel';
+
 import StateSnapshots from './components/StateSnapshots';
 import Store from './components/Store';
 import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 
 const App = () => {
-  const [d3data, setD3data] = useState(null);
+  // const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { addStateSnapshot, addDiffSnapshot, setStore } = useStore();
+  const { addStateSnapshot, addDiffSnapshot, setStore, setD3data, d3data } =
+    useStore();
 
   let connected = false;
   let port;
@@ -27,6 +28,7 @@ const App = () => {
     if (connected) {
       // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
+        console.log(message.body);
         if (message.body === 'actionAndStateSnapshot') {
           const store = JSON.parse(message.store);
           setStore(store);
@@ -50,6 +52,11 @@ const App = () => {
 
           addDiffSnapshot(currentDiffWithTimestamp);
         }
+
+        if (message.body === 'treeComponents') {
+          let data = JSON.parse(message.data);
+          useStore.getState().setD3data(data);
+        }
       });
     }
   };
@@ -57,24 +64,6 @@ const App = () => {
   // run the set up extension listner when the page loads
   useEffect(() => {
     setUpExtensionListner();
-  }, []);
-
-  const listener = () => {
-    if (!connected) {
-      port = chrome.runtime.connect();
-      connected = true;
-    }
-    if (connected) {
-      port.onMessage.addListener((message, sender, sendResponse) => {
-        let data = JSON.parse(message.data);
-
-        useStore.getState().setD3data(data);
-      });
-    }
-  };
-
-  useEffect(() => {
-    listener();
   }, []);
 
   return (
