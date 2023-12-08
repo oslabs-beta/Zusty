@@ -1,6 +1,6 @@
 # Zusty
 
-Zusty is a Zustand Dev Tool designed to facilitate the debugging of state management in your applications. It provides state snapshots, action logs, render time metrics, and a component tree showing which components are using state. With this infomration at hand debugging your Zustand code is easy!
+Zusty is a Zustand Dev Tool designed to facilitate the debugging of state management in your applications. It provides state snapshots, action logs, render time metrics, and a component tree showing which components are using state. With this information at hand debugging your Zustand code is easy!
 
 ## Installation
 
