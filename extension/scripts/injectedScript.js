@@ -39,9 +39,7 @@ function findReactComponents(element) {
     const key = Object.keys(child).find((key) =>
       key.startsWith('__reactFiber$')
     );
-    console.log('key', key);
     const fiberNode = child[key];
-    console.log('fibernode', fiberNode);
     if (fiberNode) {
       findComponentNames(fiberNode);
     }
@@ -52,8 +50,6 @@ function findReactComponents(element) {
 
 const rootElement = document.getElementById('root');
 const reactComponents = findReactComponents(rootElement);
-console.log('root', rootElement);
-console.log('reactcomp', reactComponents);
 
 function hierarchyConv(state, maxDepth = 10) {
   const rootNode = {
@@ -103,18 +99,14 @@ function hierarchyConv(state, maxDepth = 10) {
 const d3hierarchy = hierarchyConv(rootElement);
 const d3hierarchy2 = hierarchyConv(reactComponents);
 
-console.log('REACT DIVS', d3hierarchy);
-console.log('POTENTIAL HIER', d3hierarchy2);
-
-// Send the components data to the contentscript and frontend
-
-// console.log('CHECK', d3hierarchy2);
-window.postMessage({
-  type: 'REACT_COMPONENTS',
-  data: JSON.stringify(d3hierarchy2),
-});
-
-window.postMessage({
-  type: 'ROOT_DIV',
-  data: JSON.stringify(d3hierarchy),
-});
+// Send the components data to the content script
+setInterval(() => {
+  window.postMessage({
+    type: 'REACT_COMPONENTS',
+    data: JSON.stringify(d3hierarchy2),
+  });
+  window.postMessage({
+    type: 'ROOT_DIV',
+    data: JSON.stringify(d3hierarchy),
+  });
+}, 1000);
