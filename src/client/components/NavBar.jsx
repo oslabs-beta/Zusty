@@ -2,7 +2,6 @@
 import React from 'react';
 import TreeBtn from './TreeBtn';
 import StoreBtn from './StoreBtn';
-import TimeTravelBtn from './TimeTravelBtn';
 import ActionLogBtn from './ActionLogBtn';
 
 const Navigation = () => {

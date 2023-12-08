@@ -4,16 +4,14 @@ let backgroundPort;
 // backgroundjs finding a message frmo the content script type REACT COMPONENTS, then grab the request data
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'REACT_COMPONENTS' && backgroundPort) {
-    console.log('Received in background script:', request);
+    console.log('recieved initially');
     backgroundPort.postMessage({
+      body: 'treeComponents',
       type: request.type,
       data: request.data,
     });
   }
-});
 
-//listens for messages from injected script and then sends messages to app.jsx
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.body === 'actionAndStateSnapshot' && backgroundPort) {
     backgroundPort.postMessage({
       body: request.body,
