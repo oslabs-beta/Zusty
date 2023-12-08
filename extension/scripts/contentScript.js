@@ -1,5 +1,7 @@
-// content script listens for any message from injected script into DOM and sends to the background
 window.addEventListener('message', (event) => {
+  if (event.source === window && event.data.type === 'REACT_COMPONENT') {
+    console.log('listening for d3data', event.data);
+  }
   chrome.runtime.sendMessage(event.data);
 });
 
