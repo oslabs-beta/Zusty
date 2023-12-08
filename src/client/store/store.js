@@ -8,6 +8,16 @@ const useStore = create((set) => ({
   diffArray: [],
   activeTab: 'actionLog',
   store: {},
+  storeButton: false,
+  treeButton: false,
+  actionButton: true,
+  setActiveButton: (buttonName) => {
+    set((state) => ({
+      storeButton: buttonName === 'storeButton',
+      treeButton: buttonName === 'treeButton',
+      actionButton: buttonName === 'actionButton',
+    }));
+  },
   setActiveTab: (activeTab) => set({ activeTab }),
   addStateSnapshot: (snapshot) =>
     set((state) => ({

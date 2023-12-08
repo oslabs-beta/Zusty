@@ -8,14 +8,14 @@ const ReactD3Tree = () => {
 
   return (
     <div
-      id='treeWrapper'
-      style={{ width: '500px', height: '100vh', position: 'relative' }}
+      id="treeWrapper"
+      style={{ width: '80vh', height: '100vh', position: 'relative' }}
     >
       <Tree
         data={d3data}
-        rootNodeClassName='node__root'
-        branchNodeClassName='node__branch'
-        leafNodeClassName='node__leaf'
+        rootNodeClassName="node__root"
+        branchNodeClassName="node__branch"
+        leafNodeClassName="node__leaf"
         depthFactor={180}
         enableLegacyTransitions={true}
         transitionDuration={600}
