@@ -1,6 +1,7 @@
 import React from 'react';
 import Tree from 'react-d3-tree';
 import useStore from '../store/store';
+import { useEffect } from 'react';
 
 const ReactD3Tree = () => {
   const d3data = useStore((state) => state.d3data);
@@ -12,7 +13,7 @@ const ReactD3Tree = () => {
     >
       {d3data && (
         <Tree
-          data={d3data}
+          data={JSON.parse(d3data)}
           rootNodeClassName="node__root"
           branchNodeClassName="node__branch"
           leafNodeClassName="node__leaf"

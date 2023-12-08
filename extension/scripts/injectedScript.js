@@ -7,11 +7,7 @@ function findReactComponents(element) {
   function findComponentNames(fiberNode) {
     // Check if the node is a React component and has a name, excluding 'div' and 'h1'
     const isComponent =
-      fiberNode &&
-      fiberNode.elementType &&
-      fiberNode.elementType.name &&
-      fiberNode.elementType.name == 'div' &&
-      fiberNode.elementType.name == 'h1';
+      fiberNode && fiberNode.elementType && fiberNode.elementType.name;
     const isNotHtmlElement =
       fiberNode && fiberNode.type && typeof fiberNode.type === 'function';
 
@@ -21,11 +17,7 @@ function findReactComponents(element) {
       components.push(name);
     }
 
-    if (
-      fiberNode &&
-      fiberNode.stateNode &&
-      fiberNode.stateNode.nodeType === 1
-    ) {
+    if (fiberNode && fiberNode.stateNode) {
       let childFiber = fiberNode.child;
       while (childFiber) {
         findComponentNames(childFiber);
@@ -39,9 +31,8 @@ function findReactComponents(element) {
     const key = Object.keys(child).find((key) =>
       key.startsWith('__reactFiber$')
     );
-    console.log('key', key);
     const fiberNode = child[key];
-    console.log('fibernode', fiberNode);
+
     if (fiberNode) {
       findComponentNames(fiberNode);
     }
@@ -52,69 +43,50 @@ function findReactComponents(element) {
 
 const rootElement = document.getElementById('root');
 const reactComponents = findReactComponents(rootElement);
-console.log('root', rootElement);
-console.log('reactcomp', reactComponents);
 
-function hierarchyConv(state, maxDepth = 10) {
+function hierarchyConv(state) {
   const rootNode = {
-    name: 'state',
+    name: 'STATE',
     children: [],
   };
 
-  const visited = new Set();
-
-  function addNodeToTree(key, value, parent, depth) {
-    if (depth > maxDepth) {
-      parent.children.push({ name: '[Max Depth Exceeded]' });
-      return;
-    }
-
-    if (visited.has(value)) {
-      parent.children.push({ name: '[Circular]' });
-      return;
-    }
-
+  function addNodeToTree(key, value, parent) {
+    // Check if the value is an object and not null
     if (typeof value === 'object' && value !== null) {
-      visited.add(value);
-
+      // Create a new node for the object
       const newNode = { name: key, children: [] };
-      Object.entries(value).forEach(([subKey, subValue]) => {
-        addNodeToTree(subKey, subValue, newNode, depth + 1);
-      });
+      // recurse add children for each entry in the object
 
-      if (newNode.children.length === 0) {
-        delete newNode.children;
-      } else {
+      // If the new node has no children, don't add an empty children array
+      if (newNode.children.length > 0) {
         parent.children.push(newNode);
+      } else {
+        // If an object is empty, represent it as a node with its name
+        parent.children.push({ name: key });
       }
     } else {
-      // When the value is not an object, use it as the name of the node.
-      parent.children.push({ name: String(value) });
+      // If the value is not an object, represent it as a node with the value as its name
+      parent.children.push({ name: `${String(value)}` });
     }
   }
 
+  // Initialize the tree construction
   Object.entries(state).forEach(([key, value]) => {
-    addNodeToTree(key, value, rootNode, 0);
+    addNodeToTree(key, value, rootNode);
   });
 
   return rootNode;
 }
 
-const d3hierarchy = hierarchyConv(rootElement);
+// const d3hierarchy = hierarchyConv(rootElement);
 const d3hierarchy2 = hierarchyConv(reactComponents);
 
-console.log('REACT DIVS', d3hierarchy);
-console.log('POTENTIAL HIER', d3hierarchy2);
-
-// Send the components data to the contentscript and frontend
-
-// console.log('CHECK', d3hierarchy2);
 window.postMessage({
   type: 'REACT_COMPONENTS',
   data: JSON.stringify(d3hierarchy2),
 });
 
-window.postMessage({
-  type: 'ROOT_DIV',
-  data: JSON.stringify(d3hierarchy),
-});
+// window.postMessage({
+//   type: 'ROOT_DIV',
+//   data: JSON.stringify(d3hierarchy),
+// });

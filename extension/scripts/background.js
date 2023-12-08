@@ -5,7 +5,7 @@ let backgroundPort;
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'REACT_COMPONENTS' && backgroundPort) {
     console.log('Received in background script:', request);
-    backgroundPort.postMessage({
+    backgroundPort.onMessage({
       type: request.type,
       data: request.data,
     });

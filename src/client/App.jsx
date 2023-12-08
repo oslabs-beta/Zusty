@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import uuid from 'react-uuid';
 import useStore from './store/store';
-import D3Tree from './components/D3Tree';
 import Navigation from './components/NavBar';
 import ActionLog from './components/ActionLog';
 import TimeTravel from './components/TimeTravel';
@@ -10,9 +9,8 @@ import Store from './components/Store';
 import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 
 const App = () => {
-  const [d3data, setD3data] = useState(null);
   const activeTab = useStore((state) => state.activeTab);
-  const { addStateSnapshot, addDiffSnapshot, setStore } = useStore();
+  const { addStateSnapshot, addDiffSnapshot, setStore, d3data } = useStore();
 
   let connected = false;
   let port;
@@ -61,13 +59,15 @@ const App = () => {
 
   const listener = () => {
     if (!connected) {
+      console.log('notconnected');
       port = chrome.runtime.connect();
       connected = true;
     }
     if (connected) {
       port.onMessage.addListener((message, sender, sendResponse) => {
-        let data = JSON.parse(message.data);
+        console.log('connected');
 
+        let data = message.data;
         useStore.getState().setD3data(data);
       });
     }
@@ -78,14 +78,13 @@ const App = () => {
   }, []);
 
   return (
-    <div className='flex h-screen'>
-      <div className='w-1/3 bg-code-bg border-r-2 border-lt-grey'>
+    <div className="flex h-screen">
+      <div className="w-1/3 bg-code-bg border-r-2 border-lt-grey">
         <Navigation />
         <StateSnapshots />
       </div>
-      {/* <TreeRender /> */}
-      <div className='w-2/3 bg-code-bg'>
-        {activeTab === 'tree' && <ReactD3Tree data={d3data} />}
+      <div className="w-2/3 bg-code-bg">
+        {activeTab === 'tree' && <ReactD3Tree />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
         {activeTab === 'storeBtn' && <Store />}

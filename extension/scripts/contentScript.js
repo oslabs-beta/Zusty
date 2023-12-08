@@ -3,13 +3,6 @@ window.addEventListener('message', (event) => {
   chrome.runtime.sendMessage(event.data);
 });
 
-window.addEventListener('message', (event) => {
-  if (event.source === window && event.data.type === 'REACT_COMPONENT') {
-    chrome.runtime.sendMessage(event.data);
-    console.log('listening for d3data', event.data);
-  }
-});
-
 // inject the injectedScript.js
 const injectScript = (file, node) => {
   const body0 = document.getElementsByTagName(node)[0];
