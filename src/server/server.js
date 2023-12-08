@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const dotenv = require('dotenv');
-const apiRouter = require('./api.js');
+// const apiRouter = require('./api.js');
 const cors = require('cors');
 app.use(cors());
 
@@ -11,8 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use(express.static(__dirname,  '../client'));
-app.use(express.static(path.join(__dirname, '../client/')));
-app.use(express.static(path.join(__dirname, '../dist/')));
+app.use(express.static(path.join(__dirname, '../client')));
+// app.use(express.static(path.join(__dirname, '../../extension/dist')));
 
 app.use((err, req, res, next) => {
   const defaultErr = {

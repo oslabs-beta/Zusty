@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* D3 link */
+.link {
+  stroke: #999;
+  stroke-width: 2px;
+}
+
+.diffClass {
+  position: sticky;
+  top: 0px;
+  overflow: scroll;
+}
+
+.node__root > circle {
+  fill: #fcc48d;
+  stroke: none;
+  r: 15;
+}
+
+#treeWrapper path {
+  stroke: white;
+}
+#treeWrapper text {
+  fill: white;
+}
+.node__branch > circle {
+  fill: palevioletred;
+}
+
+.node__leaf > circle {
+  fill: #fd8b18;
+  stroke: none;
+  r: 15;
+}
+.custom-width {
+  width: 580px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #332930;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #332930;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5b5459;
+  border-radius: 3px;
+  border: 2px solid #332930;
+}
