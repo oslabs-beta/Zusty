@@ -3,14 +3,19 @@
 import React from 'react';
 import useStore from '../store/store';
 
-const ActionLogBtn = () => {
+const ActionLogBtn = ({ onClick, className }) => {
   const setActiveTab = useStore((state) => state.setActiveTab);
+
+  const handleClick = () => {
+    setActiveTab('actionLog');
+    onClick();
+  };
 
   return (
     <div>
       <button
-        onClick={() => setActiveTab('actionLog')}
-        className='flex flex-shrink bg-light-codebg text-white hover:bg-code-o text-gray-800 font-semibold py-2 px-4 border border-light-codebg rounded shadow'
+        onClick={handleClick}
+        className={`flex-grow flex-shrink bg-light-codebg text-white hover:bg-code-o font-semibold py-2 px-4 border border-light-codebg rounded shadow ${className}`}
       >
         Action Log
       </button>

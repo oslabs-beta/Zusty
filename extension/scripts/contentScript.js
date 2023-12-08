@@ -1,8 +1,4 @@
 window.addEventListener('message', (event) => {
-  console.log('now I am in the content script', event);
-  if (event.source === window && event.data.type === 'REACT_COMPONENT') {
-    console.log('listening for d3data', event.data);
-  }
   chrome.runtime.sendMessage(event.data);
 });
 

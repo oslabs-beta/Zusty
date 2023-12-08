@@ -39,23 +39,23 @@ const ActionLog = () => {
   return (
     <div>
       {/* Toggle Switch */}
-      <label className='mt-3 ml-2 relative inline-flex items-center mb-5 cursor-pointer'>
+      <label className="mt-3 ml-2 relative inline-flex items-center mb-5 cursor-pointer">
         <input
-          type='checkbox'
-          value=''
-          className='sr-only peer'
+          type="checkbox"
+          value=""
+          className="sr-only peer"
           onChange={handleToggleChange}
         />
         <div className="w-9 h-5 border-2 border-white peer-focus:outline-white peer-focus:ring-4 dark:peer-focus:ring-blue rounded-full peer dark:bg-lt-grey peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-lt-grey after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-lt-grey peer-checked:bg-blue"></div>
-        <span className='ms-3 text-sm font-medium text-white dark:text-white'>
+        <span className="ms-3 text-sm font-medium text-white dark:text-white">
           Show Render Times
         </span>
       </label>
       {/* Action Log Section */}
 
-      <div className='flex flex-row justify-between bg-code-bg'>
+      <div className="flex flex-row justify-between bg-code-bg">
         <div
-          className='flex items-center action-log border-b-2 border-lt-grey border-none rounded-md'
+          className="flex items-center action-log border-b-2 border-lt-grey border-none rounded-md"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -63,14 +63,14 @@ const ActionLog = () => {
             overflowY: 'auto',
           }}
         >
-          <h1 className='text-center text-xl font-bold text-white m-2 w-72 mb-0 mt-0'>
+          <h1 className="text-center text-xl font-bold text-white m-2 w-72 mb-0 mt-0">
             Action Log
           </h1>
 
-          <div className='flex flex-col h-fit' style={{ overflow: 'auto' }}>
+          <div className="flex flex-col h-fit" style={{ overflow: 'auto' }}>
             <div
-              className='flex flex-col items-center w-full justify-center
-              '
+              className="flex flex-col items-center w-full justify-center
+              "
               style={{ overflowY: 'auto' }}
             >
               {/* Mapping over diffArray to display each diff */}
@@ -90,7 +90,7 @@ const ActionLog = () => {
                       diffObj
                     )}`}
                   ></div>
-                  <p className='flex items-center justify-self-center pr-5 font-bold text-white'>
+                  <p className="flex items-center justify-self-center pr-5 font-bold text-white">
                     {diffObj.action}
                   </p>
                   {/* Showing render times if toggle switched */}
@@ -102,7 +102,7 @@ const ActionLog = () => {
                     </p>
                   )}
                   <button
-                    className='flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-code-o rounded'
+                    className="flex self-end justify-self-end bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-code-o rounded"
                     // Click event handler to update the previous and next state
                     onClick={() => {
                       handleDiffButtonClick(diffObj);
@@ -116,7 +116,7 @@ const ActionLog = () => {
           </div>
         </div>
         {/* Rendering the Diff component */}
-        <div className=' w-7/12'>
+        <div className=" w-7/12">
           <Diff />
         </div>
       </div>

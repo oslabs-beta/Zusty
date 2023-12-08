@@ -1,11 +1,19 @@
 import React from 'react';
 import useStore from '../store/store';
 
-const StoreBtn = () => {
+const StoreBtn = ({ onClick, className }) => {
   const setActiveTab = useStore((state) => state.setActiveTab);
+
+  const handleClick = () => {
+    setActiveTab('storeBtn');
+    onClick();
+  };
   return (
-    <div className="flex flex-shrink bg-light-codebg text-white hover:bg-code-o text-gray-800 font-semibold py-2 px-4 text-center border border-light-codebg rounded shadow transition duration-400">
-      <button onClick={() => setActiveTab('storeBtn')} className="navBtn">
+    <div>
+      <button
+        onClick={handleClick}
+        className={`flex-grow flex-shrink bg-light-codebg text-white hover:bg-code-o font-semibold py-2 px-4 border border-light-codebg rounded shadow ${className}`}
+      >
         Store
       </button>
     </div>
