@@ -32,7 +32,7 @@ const Diff = () => {
   return (
     <div className="w-full h-10/12">
       <h2 className="text-center text-xl text-white font-bold mb-2">
-        State Before Action
+        State Before Action:
       </h2>
       <div
         className="border-2 border-lt-grey p-4 mb-4 rounded-md bg-code-bg"

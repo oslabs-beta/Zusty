@@ -64,12 +64,12 @@ const App = () => {
   }, []);
 
   return (
-    <div className='flex h-screen'>
-      <div className='w-1/3 bg-code-bg border-r-2 border-lt-grey'>
+    <div className="flex h-screen">
+      <div className="w-1/3 bg-code-bg border-r-2 border-lt-grey">
         <Navigation />
         <StateSnapshots />
       </div>
-      <div className='w-2/3 bg-code-bg'>
+      <div className="w-2/3 bg-code-bg">
         {activeTab === 'tree' && <ReactD3Tree />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}

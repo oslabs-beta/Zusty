@@ -5,7 +5,7 @@ import TreeBtn from '../src/client/components/TreeBtn';
 import useStore from '../src/client/store/store';
 import { __esModule } from 'url-loader/dist';
 
-describe('TreeBtn', () => {
+describe('Testing TreeBtn', () => {
   it('renders a button with the text "Tree"', () => {
     render(<TreeBtn onClick={() => {}} className="" />);
 
@@ -31,7 +31,7 @@ describe('TreeBtn', () => {
 
     const button = screen.getByRole('button', { name: 'Tree' });
     fireEvent.click(button);
-    
+
     expect(setActiveTab).toHaveBeenCalledWith('tree');
   });
 });
