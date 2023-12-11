@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import useStore from './store/store';
 import Navigation from './components/NavBar';
 import ActionLog from './components/ActionLog';
@@ -8,22 +8,20 @@ import ReactD3Tree from './d3hierarchy/ReactD3Tree';
 
 const App = () => {
   const activeTab = useStore((state) => state.activeTab);
-  const { addStateSnapshot, addDiffSnapshot, setStore, setD3data, d3data } =
-    useStore();
+  const { addStateSnapshot, addDiffSnapshot, setStore, setD3data } = useStore();
 
   let connected = false;
   let port;
   let count = 0;
 
-  // getting state snapshots from injected script
-  const setUpExtensionListner = () => {
+  // listening to messages from background.js
+  const setUpExtensionListener = () => {
     if (!connected) {
       port = chrome.runtime.connect();
       connected = true;
     }
 
     if (connected) {
-      // listens to the message from the background.js
       port.onMessage.addListener((message, sender, sendResponse) => {
         if (message.body === 'actionAndStateSnapshot') {
           const store = JSON.parse(message.store);
@@ -60,16 +58,16 @@ const App = () => {
 
   // run the set up extension listner when the page loads
   useEffect(() => {
-    setUpExtensionListner();
+    setUpExtensionListener();
   }, []);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/3 bg-code-bg border-r-2 border-lt-grey">
+    <div className='flex h-screen'>
+      <div className='w-1/3 bg-code-bg border-r-2 border-lt-grey'>
         <Navigation />
         <StateSnapshots />
       </div>
-      <div className="w-2/3 bg-code-bg">
+      <div className='w-2/3 bg-code-bg'>
         {activeTab === 'tree' && <ReactD3Tree />}
         {activeTab === 'actionLog' && <ActionLog />}
         {activeTab === 'timeTravel' && <TimeTravel />}
