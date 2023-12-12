@@ -11,8 +11,9 @@ const useStore = create((set) => ({
   storeButton: false,
   treeButton: false,
   actionButton: true,
+  d3data: {},
   setActiveButton: (buttonName) => {
-    set((state) => ({
+    set(() => ({
       storeButton: buttonName === 'storeButton',
       treeButton: buttonName === 'treeButton',
       actionButton: buttonName === 'actionButton',
@@ -34,8 +35,6 @@ const useStore = create((set) => ({
   setPrevState: (pState) => set({ prevState: pState }),
   setNextState: (nState) => set({ nextState: nState }),
   setStore: (inputStore) => set({ store: inputStore }),
-
-  d3data: {},
   setD3data: (data) => set({ d3data: data }),
 }));
 

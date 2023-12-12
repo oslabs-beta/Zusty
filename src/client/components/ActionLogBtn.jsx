@@ -1,10 +1,8 @@
-// button to render the time travel component
-
 import React from 'react';
 import useStore from '../store/store';
 
 const ActionLogBtn = ({ onClick, className }) => {
-  const setActiveTab = useStore((state) => state.setActiveTab);
+  const { setActiveTab } = useStore();
 
   const handleClick = () => {
     setActiveTab('actionLog');
