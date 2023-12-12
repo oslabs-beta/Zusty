@@ -2,10 +2,10 @@
   "manifest_version": 3,
 
   "name": "Zusty",
-  "version": "5.0",
+  "version": "6.0",
 
-  "description": "Zustand's developer tool",
-  "author": "Zusty Team",
+  "description": "Zustand Developer Tool for Debugging",
+  "author": "Adrian Insingo, Jaekook Brian Lee, Dana Kaplan, Nancy Huang, William Kil",
 
   "devtools_page": "/html/devtools.html",
 
