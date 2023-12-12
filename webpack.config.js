@@ -28,7 +28,7 @@ const config = {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader', 'postcss-loader'], //sass-loader and postcss-loader may not get along
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(js|jsx)$/,
@@ -51,18 +51,9 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Development',
-      //filename: 'index.html',
       template: path.join(__dirname, './src/client/index.html'),
     }),
   ],
 };
-
-if ((process.env.NODE_ENV = 'development')) {
-  console.log('config output:', config.output);
-  console.log('config output path:', config.output.path);
-  //
-} else if ((process.env.NODE_ENV = 'production')) {
-  //
-}
 
 module.exports = config;
