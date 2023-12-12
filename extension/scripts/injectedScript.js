@@ -32,7 +32,6 @@ const findReactComponents = (element) => {
       key.startsWith('__reactFiber$')
     );
     const fiberNode = child[key];
-    console.log('fiber', fiberNode);
     if (fiberNode) {
       findComponentNames(fiberNode);
     }
