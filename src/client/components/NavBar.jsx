@@ -1,4 +1,3 @@
-// nav bar to hold the three buttons - time travel, tree, store
 import React from 'react';
 import TreeBtn from './TreeBtn';
 import StoreBtn from './StoreBtn';
@@ -7,8 +6,9 @@ import useStore from '../store/store';
 
 const Navigation = () => {
   const { storeButton, treeButton, actionButton, setActiveButton } = useStore();
+  //props being passed down to their respective button components for highlighting
   return (
-    <div className="flex items-center justify-around">
+    <div className='flex items-center justify-around'>
       <ActionLogBtn
         onClick={() => setActiveButton('actionButton')}
         className={`${

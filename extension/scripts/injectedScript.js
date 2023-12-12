@@ -1,10 +1,10 @@
 // grab the users application store
 const store = window.store;
 
-function findReactComponents(element) {
+const findReactComponents = (element) => {
   const components = [];
 
-  function findComponentNames(fiberNode) {
+  const findComponentNames = (fiberNode) => {
     // Check if the node is a React component and has a name, excluding 'div' and 'h1'
     const isComponent =
       fiberNode && fiberNode.elementType && fiberNode.elementType.name;
@@ -24,7 +24,7 @@ function findReactComponents(element) {
         childFiber = childFiber.sibling;
       }
     }
-  }
+  };
 
   Array.from(element.children).forEach((child) => {
     // Find the internal React fiber node
@@ -39,18 +39,18 @@ function findReactComponents(element) {
   });
 
   return components;
-}
+};
 
 const rootElement = document.getElementById('root');
 const reactComponents = findReactComponents(rootElement);
 
-function hierarchyConv(state) {
+const hierarchyConv = (state) => {
   const rootNode = {
     name: 'STATE',
     children: [],
   };
 
-  function addNodeToTree(key, value, parent) {
+  const addNodeToTree = (key, value, parent) => {
     // Check if the value is an object and not null
     if (typeof value === 'object' && value !== null) {
       // Create a new node for the object
@@ -68,7 +68,7 @@ function hierarchyConv(state) {
       // If the value is not an object, represent it as a node with the value as its name
       parent.children.push({ name: `${String(value)}` });
     }
-  }
+  };
 
   // Initialize the tree construction
   Object.entries(state).forEach(([key, value]) => {
@@ -76,7 +76,7 @@ function hierarchyConv(state) {
   });
 
   return rootNode;
-}
+};
 
 const d3hierarchy2 = hierarchyConv(reactComponents);
 

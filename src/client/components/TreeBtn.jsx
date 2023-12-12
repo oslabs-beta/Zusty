@@ -2,7 +2,7 @@ import React from 'react';
 import useStore from '../store/store';
 
 const TreeBtn = ({ onClick, className }) => {
-  const setActiveTab = useStore((state) => state.setActiveTab);
+  const { setActiveTab } = useStore();
 
   const handleClick = () => {
     setActiveTab('tree');
