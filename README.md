@@ -92,7 +92,7 @@ to discuss what you would like to change.
 - Nancy Huang | Github: [@itsnancyhuang](https://github.com/itsnancyhuang)
 - William Kil | Github: [@shinykoin](https://github.com/shinykoin)
 
-## Check Out Our Website and Node Package
+## Check Out Our Website and Node Module
 - http://zustydev.com/
 - https://www.npmjs.com/package/zustymiddleware
 
