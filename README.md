@@ -1,4 +1,16 @@
+
 # Zusty
+
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+![D3](https://img.shields.io/badge/d3-red?style=for-the-badge&logo=d3.js)
+![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 Zusty is a Zustand Dev Tool designed to facilitate the debugging of state management in your applications. It provides state snapshots, action logs, render time metrics, and a component tree showing which components are using state. With this information at hand debugging your Zustand code is easy!
 
@@ -81,6 +93,10 @@ to discuss what you would like to change.
 - Dana Kaplan | Github: [@DanaKaplan944](https://github.com/DanaKaplan944)
 - Nancy Huang | Github: [@itsnancyhuang](https://github.com/itsnancyhuang)
 - William Kil | Github: [@shinykoin](https://github.com/shinykoin)
+
+## Check Out Our Website and Node Module
+- http://zustydev.com/
+- https://www.npmjs.com/package/zustymiddleware
 
 ## License
 
