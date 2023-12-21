@@ -43,7 +43,7 @@ window.store = useStore;
 export default useStore;
 ```
 
-Next, download the Zusty Chrome extension: link here
+Next, download the Zusty Chrome extension: [link here](https://chromewebstore.google.com/detail/zusty/ckdnkkilcbkocfdpcaohdehnbeaefndo)
 
 You are now ready to use our tool!
 
