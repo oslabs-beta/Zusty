@@ -18,8 +18,15 @@ Zusty is a Zustand Dev Tool designed to facilitate the debugging of state manage
 
 Use the package manager to install our middleware - zustymiddleware.
 
+For JavaScript: 
+
 ```bash
 npm i zustymiddleware
+```
+
+For Typescript:
+```bash
+npm i zustymiddlewarets
 ```
 
 ## Usage
