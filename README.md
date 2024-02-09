@@ -24,7 +24,8 @@ For JavaScript:
 npm i zustymiddleware
 ```
 
-For Typescript:
+For TypeScript follow the below command and refer to the instructions here: https://www.npmjs.com/package/zustymiddlewarets?activeTab=readme.
+
 ```bash
 npm i zustymiddlewarets
 ```
